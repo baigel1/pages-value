@@ -69,7 +69,7 @@ export function PagesOverviewDashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold font-[family-name:var(--font-work-sans)] text-foreground">
-            Daniel's Ice Cream Chain Pages Overview
+            Daniel&apos;s Ice Cream Chain Pages Overview
           </h1>
           <p className="text-muted-foreground mt-1">
             Performance insights and actionable recommendations for your pages
@@ -281,8 +281,9 @@ export function PagesOverviewDashboard() {
                   </h4>
                   <p className="text-sm text-muted-foreground mt-1">
                     Your pages are performing 18% above industry average for
-                    search impressions. The "Daniel's Ice Cream locations" page
-                    is your top performer with 340K monthly impressions.
+                    search impressions. The &ldquo;Daniel&apos;s Ice Cream
+                    locations&rdquo; page is your top performer with 340K
+                    monthly impressions.
                   </p>
                 </div>
               </div>
