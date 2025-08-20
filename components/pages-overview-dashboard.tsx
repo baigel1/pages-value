@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import {
   Card,
   CardContent,
@@ -12,6 +13,13 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Line,
   LineChart,
@@ -62,7 +70,14 @@ const aiCitationsData = [
   { week: "Week 4", citations: 58, sources: 16 },
 ];
 
+// Site filter data
+const sites = [
+  { id: "all", name: "All Sites" },
+  { id: "main", name: "Main Site" },
+];
+
 export function PagesOverviewDashboard() {
+  const [selectedSite, setSelectedSite] = React.useState("all");
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
       {/* Header */}
@@ -75,16 +90,48 @@ export function PagesOverviewDashboard() {
             Performance insights and actionable recommendations for your pages
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <Badge variant="secondary" className="bg-secondary/10 text-secondary">
-            <CheckCircle className="w-3 h-3 mr-1" />
-            All systems operational
-          </Badge>
-          <Star className="w-5 h-5 text-muted-foreground" />
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <label
+              htmlFor="site-filter"
+              className="text-sm font-medium text-foreground"
+            >
+              Filter by Site:
+            </label>
+            <Select value={selectedSite} onValueChange={setSelectedSite}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select a site" />
+              </SelectTrigger>
+              <SelectContent>
+                {sites.map((site) => (
+                  <SelectItem key={site.id} value={site.id}>
+                    {site.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge
+              variant="secondary"
+              className="bg-secondary/10 text-secondary"
+            >
+              <CheckCircle className="w-3 h-3 mr-1" />
+              All systems operational
+            </Badge>
+            <Star className="w-5 h-5 text-muted-foreground" />
+          </div>
         </div>
       </div>
 
       {/* Key Metrics Grid */}
+      {selectedSite !== "all" && (
+        <div className="flex items-center gap-2 mb-2">
+          <Badge variant="outline" className="text-xs">
+            Filtered by: {sites.find((site) => site.id === selectedSite)?.name}
+          </Badge>
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="bg-card border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
