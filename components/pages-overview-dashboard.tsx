@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 import {
   Line,
   LineChart,
@@ -44,6 +45,8 @@ import {
   Users,
   Clock,
   Target,
+  Eye,
+  Info,
 } from "lucide-react";
 
 // Mock data for the dashboard
@@ -56,18 +59,67 @@ const performanceData = [
   { month: "Jun", impressions: 1940000, clicks: 194000, ctr: 10.0 },
 ];
 
-const ctaPerformanceData = [
-  { page: "Homepage", clicks: 2400, conversions: 240, rate: 10.0 },
-  { page: "Product Pages", clicks: 1800, conversions: 216, rate: 12.0 },
-  { page: "Blog Posts", clicks: 1200, conversions: 84, rate: 7.0 },
-  { page: "Landing Pages", clicks: 900, conversions: 108, rate: 12.0 },
+const pageViewsOverTimeData = [
+  { date: "Jan 1", pageViews: 28000 },
+  { date: "Jan 8", pageViews: 32000 },
+  { date: "Jan 15", pageViews: 35000 },
+  { date: "Jan 22", pageViews: 38000 },
+  { date: "Jan 29", pageViews: 42000 },
+  { date: "Feb 5", pageViews: 45000 },
+  { date: "Feb 12", pageViews: 48000 },
+  { date: "Feb 19", pageViews: 52000 },
+  { date: "Feb 26", pageViews: 55000 },
+  { date: "Mar 5", pageViews: 58000 },
+  { date: "Mar 12", pageViews: 62000 },
+  { date: "Mar 19", pageViews: 65000 },
 ];
 
-const aiCitationsData = [
-  { week: "Week 1", citations: 45, sources: 12 },
-  { week: "Week 2", citations: 52, sources: 15 },
-  { week: "Week 3", citations: 61, sources: 18 },
-  { week: "Week 4", citations: 58, sources: 16 },
+const aiVisibilityData = [
+  { model: "ChatGPT", visibilityScore: 50 },
+  { model: "Gemini", visibilityScore: 58 },
+  { model: "Perplexity", visibilityScore: 67 },
+];
+
+const ctaClicksData = [
+  { type: "Get Directions", clicks: 2840, percentage: 39 },
+  { type: "Call", clicks: 1820, percentage: 25 },
+  { type: "Order Online", clicks: 1460, percentage: 20 },
+  { type: "Book an Appointment", clicks: 1160, percentage: 16 },
+];
+
+const trafficSourceData = [
+  {
+    source: "Google Search",
+    week1: 8500,
+    week2: 9200,
+    week3: 8800,
+    week4: 9500,
+  },
+  { source: "Bing Search", week1: 1200, week2: 1350, week3: 1400, week4: 1600 },
+  { source: "ChatGPT", week1: 2800, week2: 3200, week3: 3800, week4: 4200 },
+  { source: "Claude", week1: 800, week2: 950, week3: 1100, week4: 1350 },
+  {
+    source: "Direct Traffic",
+    week1: 3200,
+    week2: 3400,
+    week3: 3600,
+    week4: 3800,
+  },
+  {
+    source: "Social Media",
+    week1: 1500,
+    week2: 1700,
+    week3: 1900,
+    week4: 2100,
+  },
+];
+
+// Date ranges for the weeks
+const weekDates = [
+  "Week of 9/7/2025",
+  "Week of 9/14/2025",
+  "Week of 9/21/2025",
+  "Week of 9/28/2025",
 ];
 
 // Site filter data
@@ -135,9 +187,19 @@ export function PagesOverviewDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="bg-card border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-card-foreground">
-              Search Impressions
-            </CardTitle>
+            <div className="flex items-center gap-1">
+              <CardTitle className="text-sm font-medium text-card-foreground">
+                Search Impressions
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-3 w-3 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  Search impressions track the number of times your pages appear
+                  in Google search results
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
             <Search className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
@@ -151,9 +213,19 @@ export function PagesOverviewDashboard() {
 
         <Card className="bg-card border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-card-foreground">
-              Click-Through Rate
-            </CardTitle>
+            <div className="flex items-center gap-1">
+              <CardTitle className="text-sm font-medium text-card-foreground">
+                Click-Through Rate
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-3 w-3 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  Click-through rate measures the percentage of users who click
+                  on your pages after seeing them in search results
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
             <MousePointer className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
@@ -167,9 +239,19 @@ export function PagesOverviewDashboard() {
 
         <Card className="bg-card border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-card-foreground">
-              CTA Clicks
-            </CardTitle>
+            <div className="flex items-center gap-1">
+              <CardTitle className="text-sm font-medium text-card-foreground">
+                CTA Clicks
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-3 w-3 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  CTA (Call-to-Action) clicks track how many users click on
+                  buttons, links, or other action elements on your pages
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
             <Target className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
@@ -183,16 +265,26 @@ export function PagesOverviewDashboard() {
 
         <Card className="bg-card border-border">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-card-foreground">
-              AI Citations
-            </CardTitle>
-            <Bot className="h-4 w-4 text-primary" />
+            <div className="flex items-center gap-1">
+              <CardTitle className="text-sm font-medium text-card-foreground">
+                Page Views
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-3 w-3 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  Page views count the total number of times your pages have
+                  been viewed by visitors
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
+            <Eye className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-foreground">216</div>
+            <div className="text-2xl font-bold text-foreground">892K</div>
             <div className="flex items-center text-xs text-muted-foreground">
               <TrendingUp className="w-3 h-3 mr-1 text-secondary" />
-              +28% from last month
+              +12% from last month
             </div>
           </CardContent>
         </Card>
@@ -202,9 +294,19 @@ export function PagesOverviewDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-foreground">
-              Search Performance Trend
-            </CardTitle>
+            <div className="flex items-center gap-1">
+              <CardTitle className="text-foreground">
+                Search Performance Trend
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  Shows how your search impressions and clicks have changed over
+                  the past 6 months
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
             <CardDescription className="text-muted-foreground">
               Impressions and clicks over the last 6 months
             </CardDescription>
@@ -259,49 +361,245 @@ export function PagesOverviewDashboard() {
 
         <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-foreground">
-              CTA Performance by Page Type
-            </CardTitle>
+            <div className="flex items-center gap-1">
+              <CardTitle className="text-foreground">
+                Page Views Over Time
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  Shows how your page views have changed over the past 3 months
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
             <CardDescription className="text-muted-foreground">
-              Click-through rates and conversions across different page types
+              Daily page view trends over the past 3 months
             </CardDescription>
           </CardHeader>
           <CardContent>
             <ChartContainer
               config={{
-                clicks: {
-                  label: "Clicks",
+                pageViews: {
+                  label: "Page Views",
                   color: "hsl(var(--chart-3))",
-                },
-                conversions: {
-                  label: "Conversions",
-                  color: "hsl(var(--chart-4))",
                 },
               }}
               className="h-[300px]"
             >
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={ctaPerformanceData}>
+                <LineChart data={pageViewsOverTimeData}>
                   <CartesianGrid
                     strokeDasharray="3 3"
                     stroke="hsl(var(--border))"
                   />
-                  <XAxis dataKey="page" stroke="hsl(var(--muted-foreground))" />
+                  <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" />
                   <YAxis stroke="hsl(var(--muted-foreground))" />
                   <ChartTooltip />
-                  <Bar
-                    dataKey="clicks"
-                    fill="hsl(var(--chart-3))"
-                    radius={[4, 4, 0, 0]}
+                  <Line
+                    type="monotone"
+                    dataKey="pageViews"
+                    stroke="#22c55e"
+                    strokeWidth={3}
+                    connectNulls={true}
+                    activeDot={{ r: 6 }}
                   />
-                  <Bar
-                    dataKey="conversions"
-                    fill="hsl(var(--chart-4))"
-                    radius={[4, 4, 0, 0]}
-                  />
-                </BarChart>
+                </LineChart>
               </ResponsiveContainer>
             </ChartContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Traffic Sources Heat Map and CTA Clicks */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="bg-card border-border">
+          <CardHeader>
+            <div className="flex items-center gap-1">
+              <CardTitle className="flex items-center gap-2 text-foreground">
+                <Search className="w-5 h-5 text-primary" />
+                Traffic Sources Heat Map
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  Visual representation of traffic volume from different sources
+                  over the past 4 weeks
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
+            <CardDescription className="text-muted-foreground">
+              Traffic intensity by source over the last 4 weeks
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {/* Heat Map Legend */}
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Lower</span>
+                <div className="flex items-center gap-1">
+                  <div className="w-4 h-4 bg-blue-100 rounded"></div>
+                  <div className="w-4 h-4 bg-blue-200 rounded"></div>
+                  <div className="w-4 h-4 bg-blue-300 rounded"></div>
+                  <div className="w-4 h-4 bg-blue-400 rounded"></div>
+                  <div className="w-4 h-4 bg-blue-500 rounded"></div>
+                  <div className="w-4 h-4 bg-blue-600 rounded"></div>
+                </div>
+                <span className="text-muted-foreground">Higher</span>
+              </div>
+
+              {/* Heat Map Grid */}
+              <div className="space-y-2">
+                {/* Header Row */}
+                <div className="grid grid-cols-5 gap-2">
+                  <div className="text-sm font-medium text-foreground"></div>
+                  <div className="text-center text-sm font-medium text-foreground">
+                    {weekDates[0]}
+                  </div>
+                  <div className="text-center text-sm font-medium text-foreground">
+                    {weekDates[1]}
+                  </div>
+                  <div className="text-center text-sm font-medium text-foreground">
+                    {weekDates[2]}
+                  </div>
+                  <div className="text-center text-sm font-medium text-foreground">
+                    {weekDates[3]}
+                  </div>
+                </div>
+
+                {/* Data Rows */}
+                {(() => {
+                  // Calculate global min/max across all sources and weeks
+                  const allValues = trafficSourceData.flatMap((item) => [
+                    item.week1,
+                    item.week2,
+                    item.week3,
+                    item.week4,
+                  ]);
+                  const globalMax = Math.max(...allValues);
+                  const globalMin = Math.min(...allValues);
+                  const globalRange = globalMax - globalMin;
+
+                  const getIntensity = (value: number) => {
+                    // Simple linear scale: higher value = darker color (1-6)
+                    const normalized = (value - globalMin) / globalRange;
+                    return Math.ceil(normalized * 5) + 1;
+                  };
+
+                  return trafficSourceData.map((item, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="grid grid-cols-5 gap-2 items-center"
+                      >
+                        <div className="text-sm font-medium text-foreground truncate pr-2">
+                          {item.source}
+                        </div>
+                        <div
+                          className={`h-8 rounded flex items-center justify-center text-xs font-medium text-white bg-blue-${
+                            getIntensity(item.week1) * 100
+                          } hover:scale-105 transition-transform cursor-pointer`}
+                          title={`${item.source} - ${
+                            weekDates[0]
+                          }: ${item.week1.toLocaleString()} visits`}
+                        >
+                          {item.week1.toLocaleString()}
+                        </div>
+                        <div
+                          className={`h-8 rounded flex items-center justify-center text-xs font-medium text-white bg-blue-${
+                            getIntensity(item.week2) * 100
+                          } hover:scale-105 transition-transform cursor-pointer`}
+                          title={`${item.source} - ${
+                            weekDates[1]
+                          }: ${item.week2.toLocaleString()} visits`}
+                        >
+                          {item.week2.toLocaleString()}
+                        </div>
+                        <div
+                          className={`h-8 rounded flex items-center justify-center text-xs font-medium text-white bg-blue-${
+                            getIntensity(item.week3) * 100
+                          } hover:scale-105 transition-transform cursor-pointer`}
+                          title={`${item.source} - ${
+                            weekDates[2]
+                          }: ${item.week3.toLocaleString()} visits`}
+                        >
+                          {item.week3.toLocaleString()}
+                        </div>
+                        <div
+                          className={`h-8 rounded flex items-center justify-center text-xs font-medium text-white bg-blue-${
+                            getIntensity(item.week4) * 100
+                          } hover:scale-105 transition-transform cursor-pointer`}
+                          title={`${item.source} - ${
+                            weekDates[3]
+                          }: ${item.week4.toLocaleString()} visits`}
+                        >
+                          {item.week4.toLocaleString()}
+                        </div>
+                      </div>
+                    );
+                  });
+                })()}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-card border-border">
+          <CardHeader>
+            <div className="flex items-center gap-1">
+              <CardTitle className="flex items-center gap-2 text-foreground">
+                <Target className="w-5 h-5 text-primary" />
+                CTA Clicks by Type
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  Distribution of call-to-action clicks across different user
+                  actions
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
+            <CardDescription className="text-muted-foreground">
+              Total: 7,280 clicks across all CTA types
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[300px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={ctaClicksData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis dataKey="type" stroke="#64748b" />
+                  <YAxis
+                    stroke="#64748b"
+                    domain={[0, 3000]}
+                    tickFormatter={(value) => `${value.toLocaleString()}`}
+                  />
+                  <ChartTooltip
+                    formatter={(value: any) => [
+                      `${value.toLocaleString()} clicks`,
+                      "CTA Clicks",
+                    ]}
+                  />
+                  <Bar dataKey="clicks" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Summary Stats */}
+            <div className="mt-4 grid grid-cols-2 gap-4">
+              {ctaClicksData.map((item, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-lg font-semibold text-foreground">
+                    {item.percentage}%
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {item.type}
+                  </div>
+                </div>
+              ))}
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -310,10 +608,20 @@ export function PagesOverviewDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="lg:col-span-2 bg-card border-border">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-foreground">
-              <Bot className="w-5 h-5 text-primary" />
-              AI-Powered Insights
-            </CardTitle>
+            <div className="flex items-center gap-1">
+              <CardTitle className="flex items-center gap-2 text-foreground">
+                <Bot className="w-5 h-5 text-primary" />
+                AI-Powered Insights
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  AI-generated insights and recommendations based on your page
+                  performance data
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
             <CardDescription className="text-muted-foreground">
               Automated analysis of your pages performance
             </CardDescription>
@@ -372,9 +680,19 @@ export function PagesOverviewDashboard() {
 
         <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-foreground">
-              Recommended Actions
-            </CardTitle>
+            <div className="flex items-center gap-1">
+              <CardTitle className="text-foreground">
+                Recommended Actions
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  Prioritized action items to improve your page performance and
+                  user experience
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
             <CardDescription className="text-muted-foreground">
               Priority improvements for your pages
             </CardDescription>
@@ -447,56 +765,58 @@ export function PagesOverviewDashboard() {
         </Card>
       </div>
 
-      {/* AI Citations Trend */}
+      {/* AI Visibility Score */}
       <Card className="bg-card border-border">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-foreground">
-            <Bot className="w-5 h-5 text-primary" />
-            AI Citations Trend
-          </CardTitle>
+          <div className="flex items-center gap-1">
+            <CardTitle className="flex items-center gap-2 text-foreground">
+              <Bot className="w-5 h-5 text-primary" />
+              AI Visibility Score
+            </CardTitle>
+            <div className="relative group">
+              <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                How frequently AI models are mentioning your brand in answers to
+                unbranded queries that are relevant to your business
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+              </div>
+            </div>
+          </div>
           <CardDescription className="text-muted-foreground">
-            How often your content is being referenced by AI systems
+            Visibility scores across different AI models
           </CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer
             config={{
-              citations: {
-                label: "Citations",
-                color: "hsl(var(--chart-5))",
-              },
-              sources: {
-                label: "Unique Sources",
+              visibilityScore: {
+                label: "Visibility Score",
                 color: "hsl(var(--chart-1))",
               },
             }}
             className="h-[200px]"
           >
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={aiCitationsData}>
+              <BarChart data={aiVisibilityData}>
                 <CartesianGrid
                   strokeDasharray="3 3"
                   stroke="hsl(var(--border))"
                 />
-                <XAxis dataKey="week" stroke="hsl(var(--muted-foreground))" />
-                <YAxis stroke="hsl(var(--muted-foreground))" />
-                <ChartTooltip />
-                <Line
-                  type="monotone"
-                  dataKey="citations"
-                  stroke="hsl(var(--chart-5))"
-                  strokeWidth={3}
-                  dot={{ fill: "hsl(var(--chart-5))", strokeWidth: 2, r: 4 }}
+                <XAxis dataKey="model" stroke="hsl(var(--muted-foreground))" />
+                <YAxis
+                  stroke="hsl(var(--muted-foreground))"
+                  domain={[0, 100]}
+                  tickFormatter={(value) => `${value}%`}
                 />
-                <Line
-                  type="monotone"
-                  dataKey="sources"
-                  stroke="hsl(var(--chart-1))"
-                  strokeWidth={2}
-                  strokeDasharray="5 5"
-                  dot={{ fill: "hsl(var(--chart-1))", strokeWidth: 2, r: 3 }}
+                <ChartTooltip
+                  formatter={(value: any) => [`${value}%`, "Visibility Score"]}
                 />
-              </LineChart>
+                <Bar
+                  dataKey="visibilityScore"
+                  fill="hsl(var(--chart-1))"
+                  radius={[4, 4, 0, 0]}
+                />
+              </BarChart>
             </ResponsiveContainer>
           </ChartContainer>
         </CardContent>

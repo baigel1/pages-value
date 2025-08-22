@@ -121,3 +121,30 @@
     @apply bg-background text-foreground font-sans;
   }
 }
+
+/* Tooltip animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+[data-state="delayed-open"] {
+  animation: fadeIn 0.2s ease-out;
+}
+
+[data-state="closed"] {
+  animation: fadeOut 0.1s ease-in;
+}
