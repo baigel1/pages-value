@@ -577,7 +577,7 @@ export function PagesOverviewDashboard() {
                     tickFormatter={(value) => `${value.toLocaleString()}`}
                   />
                   <ChartTooltip
-                    formatter={(value: any) => [
+                    formatter={(value: number) => [
                       `${value.toLocaleString()} clicks`,
                       "CTA Clicks",
                     ]}
@@ -809,7 +809,10 @@ export function PagesOverviewDashboard() {
                   tickFormatter={(value) => `${value}%`}
                 />
                 <ChartTooltip
-                  formatter={(value: any) => [`${value}%`, "Visibility Score"]}
+                  formatter={(value: number) => [
+                    `${value}%`,
+                    "Visibility Score",
+                  ]}
                 />
                 <Bar
                   dataKey="visibilityScore"
