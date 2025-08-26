@@ -280,6 +280,100 @@ const unbrandedTermsData = [
   },
 ];
 
+// Page Views Leaderboard Data
+const pageViewsLeaderboardData = [
+  {
+    rank: 1,
+    name: "Daniel's Ice Cream - Downtown Raleigh",
+    address: "123 Fayetteville Street Mall, Raleigh, NC 27601",
+    categories: "Ice Cream Shop",
+    city: "Raleigh",
+    entityId: 49285,
+    postalCode: "27601",
+    pageViews: 1374,
+  },
+  {
+    rank: 2,
+    name: "Daniel's Ice Cream - Columbia Center",
+    address: "1230 Main St, Columbia, SC 29201",
+    categories: "Ice Cream Shop",
+    city: "Columbia",
+    entityId: 46175,
+    postalCode: "29201",
+    pageViews: 278,
+  },
+  {
+    rank: 3,
+    name: "Daniel's Ice Cream - Greenville Plaza",
+    address: "456 Wade Hampton Blvd, Greenville, SC 29615",
+    categories: "Ice Cream Shop",
+    city: "Greenville",
+    entityId: 66063,
+    postalCode: "29615",
+    pageViews: 192,
+  },
+  {
+    rank: 4,
+    name: "Daniel's Ice Cream - Charlotte Uptown",
+    address: "789 Trade Street, Charlotte, NC 28202",
+    categories: "Ice Cream Shop",
+    city: "Charlotte",
+    entityId: 52341,
+    postalCode: "28202",
+    pageViews: 162,
+  },
+  {
+    rank: 5,
+    name: "Daniel's Ice Cream - Wilmington Waterfront",
+    address: "321 Front Street, Wilmington, NC 28401",
+    categories: "Ice Cream Shop",
+    city: "Wilmington",
+    entityId: 58792,
+    postalCode: "28401",
+    pageViews: 154,
+  },
+  {
+    rank: 6,
+    name: "Daniel's Ice Cream - Clemson Campus",
+    address: "654 College Avenue, Clemson, SC 29631",
+    categories: "Ice Cream Shop",
+    city: "Clemson",
+    entityId: 63478,
+    postalCode: "29631",
+    pageViews: 144,
+  },
+  {
+    rank: 7,
+    name: "Daniel's Ice Cream - Anderson Mall",
+    address: "987 Clemson Blvd, Anderson, SC 29621",
+    categories: "Ice Cream Shop",
+    city: "Anderson",
+    entityId: 71234,
+    postalCode: "29621",
+    pageViews: 118,
+  },
+  {
+    rank: 8,
+    name: "Daniel's Ice Cream - Franklin Square",
+    address: "456 Main Street, Franklin, NC 28734",
+    categories: "Ice Cream Shop",
+    city: "Franklin",
+    entityId: 44567,
+    postalCode: "28734",
+    pageViews: 115,
+  },
+  {
+    rank: 9,
+    name: "Daniel's Ice Cream - Greenwood Center",
+    address: "789 Bypass 72, Greenwood, SC 29649",
+    categories: "Ice Cream Shop",
+    city: "Greenwood",
+    entityId: 82345,
+    postalCode: "29649",
+    pageViews: 111,
+  },
+];
+
 const trafficSourceData = [
   {
     source: "Google Search",
@@ -796,6 +890,106 @@ export function PagesOverviewDashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Page Views Leaderboard */}
+      <Card className="bg-card border-border">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              <CardTitle className="flex items-center gap-2 text-foreground">
+                <Eye className="w-5 h-5 text-primary" />
+                Page Views Leaderboard
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  Top performing pages ranked by page views
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">
+                {pageViewsLeaderboardData
+                  .reduce((sum, item) => sum + item.pageViews, 0)
+                  .toLocaleString()}{" "}
+                total views
+              </span>
+              <button className="p-1 hover:bg-muted rounded">
+                <span className="text-muted-foreground">↓</span>
+              </button>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                    Rank
+                  </th>
+                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                    Name
+                  </th>
+                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                    Address
+                  </th>
+                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                    Categories
+                  </th>
+                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                    City
+                  </th>
+                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                    Entity ID
+                  </th>
+                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                    Postal Code
+                  </th>
+                  <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                    Page Views
+                    <span className="ml-1 text-muted-foreground">▼</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {pageViewsLeaderboardData.map((item) => (
+                  <tr
+                    key={item.entityId}
+                    className="border-b border-border/50 hover:bg-muted/50"
+                  >
+                    <td className="py-2 px-2 text-sm text-foreground font-medium">
+                      {item.rank}
+                    </td>
+                    <td className="py-2 px-2 text-sm text-foreground font-medium">
+                      {item.name}
+                    </td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      {item.address}
+                    </td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      {item.categories}
+                    </td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      {item.city}
+                    </td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      {item.entityId}
+                    </td>
+                    <td className="py-2 px-2 text-sm text-foreground">
+                      {item.postalCode}
+                    </td>
+                    <td className="py-2 px-2 text-sm text-foreground text-right font-medium">
+                      {item.pageViews.toLocaleString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* AI Insights and Recommendations */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
