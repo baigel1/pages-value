@@ -87,6 +87,199 @@ const ctaClicksData = [
   { type: "Book an Appointment", clicks: 1160, percentage: 16 },
 ];
 
+// Page Health Data
+const pageSpeedData = {
+  performance: 87,
+  accessibility: 92,
+  bestPractices: 89,
+  seo: 95,
+  firstContentfulPaint: 1.2,
+  largestContentfulPaint: 2.8,
+  cumulativeLayoutShift: 0.08,
+  firstInputDelay: 0.15,
+};
+
+const wcagData = {
+  overallScore: 88,
+  issues: [
+    { severity: "high", description: "Missing alt text on 3 images", count: 3 },
+    {
+      severity: "medium",
+      description: "Color contrast ratio below 4.5:1",
+      count: 2,
+    },
+    {
+      severity: "low",
+      description: "Missing ARIA labels on form inputs",
+      count: 1,
+    },
+  ],
+};
+
+const schemaData = {
+  types: [
+    { type: "Organization", status: "valid", implemented: true },
+    { type: "LocalBusiness", status: "valid", implemented: true },
+    { type: "Restaurant", status: "valid", implemented: true },
+    { type: "Menu", status: "warning", implemented: true },
+    { type: "Review", status: "error", implemented: false },
+    { type: "Event", status: "valid", implemented: true },
+  ],
+  validationStatus: "valid",
+  totalTypes: 6,
+  implementedTypes: 5,
+};
+
+const analyticsData = {
+  enabled: true,
+  tags: [
+    { name: "Google Analytics 4", status: "active", id: "G-XXXXXXXXXX" },
+    { name: "Google Tag Manager", status: "active", id: "GTM-XXXXXXX" },
+    { name: "Facebook Pixel", status: "active", id: "123456789" },
+    { name: "Bing Ads", status: "inactive", id: "BING-XXXXX" },
+  ],
+};
+
+// Search Terms Data
+const brandedTermsData = [
+  {
+    searchTerm: "daniel's ice cream locations",
+    impressions: 933,
+    clicks: 1,
+    ctr: 0.11,
+    position: 54.9,
+  },
+  {
+    searchTerm: "daniel's ice cream greenville nc",
+    impressions: 867,
+    clicks: 1,
+    ctr: 0.12,
+    position: 8.1,
+  },
+  {
+    searchTerm: "daniel's ice cream franklin nc",
+    impressions: 810,
+    clicks: 0,
+    ctr: 0.0,
+    position: 10,
+  },
+  {
+    searchTerm: "daniel's ice cream greenwood sc",
+    impressions: 738,
+    clicks: 1,
+    ctr: 0.14,
+    position: 9.3,
+  },
+  {
+    searchTerm: "daniel's ice cream clemson",
+    impressions: 609,
+    clicks: 0,
+    ctr: 0.0,
+    position: 11.6,
+  },
+  {
+    searchTerm: "daniel's ice cream raleigh nc",
+    impressions: 547,
+    clicks: 0,
+    ctr: 0.0,
+    position: 67.6,
+  },
+  {
+    searchTerm: "daniel's ice cream anderson sc",
+    impressions: 515,
+    clicks: 0,
+    ctr: 0.0,
+    position: 8,
+  },
+  {
+    searchTerm: "daniel's ice cream raleigh",
+    impressions: 511,
+    clicks: 0,
+    ctr: 0.0,
+    position: 62.2,
+  },
+  {
+    searchTerm: "daniel's ice cream rock hill sc",
+    impressions: 427,
+    clicks: 0,
+    ctr: 0.0,
+    position: 8,
+  },
+];
+
+const unbrandedTermsData = [
+  {
+    searchTerm: "ice cream shop near me",
+    impressions: 1579,
+    clicks: 6,
+    ctr: 0.38,
+    position: 11.7,
+  },
+  {
+    searchTerm: "best ice cream raleigh",
+    impressions: 737,
+    clicks: 0,
+    ctr: 0.0,
+    position: 9.4,
+  },
+  {
+    searchTerm: "homemade ice cream charlotte",
+    impressions: 636,
+    clicks: 0,
+    ctr: 0.0,
+    position: 84.4,
+  },
+  {
+    searchTerm: "ice cream parlor greenville",
+    impressions: 617,
+    clicks: 4,
+    ctr: 0.65,
+    position: 8.6,
+  },
+  {
+    searchTerm: "gelato shop columbia sc",
+    impressions: 609,
+    clicks: 0,
+    ctr: 0.0,
+    position: 8.8,
+  },
+  {
+    searchTerm: "ice cream delivery raleigh",
+    impressions: 564,
+    clicks: 0,
+    ctr: 0.0,
+    position: 67.3,
+  },
+  {
+    searchTerm: "frozen yogurt clemson",
+    impressions: 513,
+    clicks: 1,
+    ctr: 0.19,
+    position: 9.8,
+  },
+  {
+    searchTerm: "ice cream cakes wilmington",
+    impressions: 482,
+    clicks: 0,
+    ctr: 0.0,
+    position: 87.5,
+  },
+  {
+    searchTerm: "dairy free ice cream columbia sc",
+    impressions: 471,
+    clicks: 0,
+    ctr: 0.0,
+    position: 75.4,
+  },
+  {
+    searchTerm: "ice cream sundae anderson sc",
+    impressions: 452,
+    clicks: 0,
+    ctr: 0.0,
+    position: 7.9,
+  },
+];
+
 const trafficSourceData = [
   {
     source: "Google Search",
@@ -763,6 +956,554 @@ export function PagesOverviewDashboard() {
             </Button>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Page Health Section */}
+      <div className="space-y-6">
+        <div className="flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-foreground">Page Health</h2>
+          <Badge variant="outline" className="text-xs">
+            Overall Score: 89/100
+          </Badge>
+        </div>
+
+        {/* Page Speed Metrics */}
+        <Card className="bg-card border-border">
+          <CardHeader>
+            <div className="flex items-center gap-1">
+              <CardTitle className="flex items-center gap-2 text-foreground">
+                <Clock className="w-5 h-5 text-primary" />
+                Page Speed Metrics
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  Lighthouse performance metrics and Core Web Vitals
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
+            <CardDescription className="text-muted-foreground">
+              Lighthouse scores and Core Web Vitals performance
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-foreground">
+                  {pageSpeedData.performance}
+                </div>
+                <div className="text-sm text-muted-foreground">Performance</div>
+                <Progress value={pageSpeedData.performance} className="mt-2" />
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-foreground">
+                  {pageSpeedData.accessibility}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Accessibility
+                </div>
+                <Progress
+                  value={pageSpeedData.accessibility}
+                  className="mt-2"
+                />
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-foreground">
+                  {pageSpeedData.bestPractices}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Best Practices
+                </div>
+                <Progress
+                  value={pageSpeedData.bestPractices}
+                  className="mt-2"
+                />
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-foreground">
+                  {pageSpeedData.seo}
+                </div>
+                <div className="text-sm text-muted-foreground">SEO</div>
+                <Progress value={pageSpeedData.seo} className="mt-2" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="text-center p-3 bg-muted rounded-lg">
+                <div className="text-lg font-semibold text-foreground">
+                  {pageSpeedData.firstContentfulPaint}s
+                </div>
+                <div className="text-xs text-muted-foreground">FCP</div>
+                <Badge
+                  variant={
+                    pageSpeedData.firstContentfulPaint < 1.8
+                      ? "default"
+                      : "destructive"
+                  }
+                  className="text-xs mt-1"
+                >
+                  {pageSpeedData.firstContentfulPaint < 1.8
+                    ? "Good"
+                    : "Needs Improvement"}
+                </Badge>
+              </div>
+              <div className="text-center p-3 bg-muted rounded-lg">
+                <div className="text-lg font-semibold text-foreground">
+                  {pageSpeedData.largestContentfulPaint}s
+                </div>
+                <div className="text-xs text-muted-foreground">LCP</div>
+                <Badge
+                  variant={
+                    pageSpeedData.largestContentfulPaint < 2.5
+                      ? "default"
+                      : "destructive"
+                  }
+                  className="text-xs mt-1"
+                >
+                  {pageSpeedData.largestContentfulPaint < 2.5
+                    ? "Good"
+                    : "Needs Improvement"}
+                </Badge>
+              </div>
+              <div className="text-center p-3 bg-muted rounded-lg">
+                <div className="text-lg font-semibold text-foreground">
+                  {pageSpeedData.cumulativeLayoutShift}
+                </div>
+                <div className="text-xs text-muted-foreground">CLS</div>
+                <Badge
+                  variant={
+                    pageSpeedData.cumulativeLayoutShift < 0.1
+                      ? "default"
+                      : "destructive"
+                  }
+                  className="text-xs mt-1"
+                >
+                  {pageSpeedData.cumulativeLayoutShift < 0.1
+                    ? "Good"
+                    : "Needs Improvement"}
+                </Badge>
+              </div>
+              <div className="text-center p-3 bg-muted rounded-lg">
+                <div className="text-lg font-semibold text-foreground">
+                  {pageSpeedData.firstInputDelay}s
+                </div>
+                <div className="text-xs text-muted-foreground">FID</div>
+                <Badge
+                  variant={
+                    pageSpeedData.firstInputDelay < 0.1
+                      ? "default"
+                      : "destructive"
+                  }
+                  className="text-xs mt-1"
+                >
+                  {pageSpeedData.firstInputDelay < 0.1
+                    ? "Good"
+                    : "Needs Improvement"}
+                </Badge>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* WCAG Accessibility and Schema Info */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <div className="flex items-center gap-1">
+                <CardTitle className="flex items-center gap-2 text-foreground">
+                  <Users className="w-5 h-5 text-primary" />
+                  WCAG Accessibility
+                </CardTitle>
+                <div className="relative group">
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                    Web Content Accessibility Guidelines compliance
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                  </div>
+                </div>
+              </div>
+              <CardDescription className="text-muted-foreground">
+                Overall Score: {wcagData.overallScore}/100
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-foreground">
+                    {wcagData.overallScore}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Accessibility Score
+                  </div>
+                  <Progress value={wcagData.overallScore} className="mt-2" />
+                </div>
+
+                <div className="space-y-3">
+                  <h4 className="font-medium text-foreground">Issues Found:</h4>
+                  {wcagData.issues.map((issue, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 p-3 bg-muted rounded-lg"
+                    >
+                      <div
+                        className={`w-3 h-3 rounded-full ${
+                          issue.severity === "high"
+                            ? "bg-destructive"
+                            : issue.severity === "medium"
+                            ? "bg-chart-4"
+                            : "bg-secondary"
+                        }`}
+                      ></div>
+                      <div className="flex-1">
+                        <div className="text-sm font-medium text-foreground">
+                          {issue.description}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {issue.count} instances
+                        </div>
+                      </div>
+                      <Badge variant="outline" className="text-xs capitalize">
+                        {issue.severity}
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <div className="flex items-center gap-1">
+                <CardTitle className="flex items-center gap-2 text-foreground">
+                  <Search className="w-5 h-5 text-primary" />
+                  Schema Information
+                </CardTitle>
+                <div className="relative group">
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                    Structured data markup validation and implementation
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                  </div>
+                </div>
+              </div>
+              <CardDescription className="text-muted-foreground">
+                {schemaData.implementedTypes}/{schemaData.totalTypes} schema
+                types implemented
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <Badge
+                    variant={
+                      schemaData.validationStatus === "valid"
+                        ? "default"
+                        : "destructive"
+                    }
+                  >
+                    {schemaData.validationStatus === "valid"
+                      ? "Valid"
+                      : "Errors Found"}
+                  </Badge>
+                  <span className="text-sm text-muted-foreground">
+                    Schema validation status
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="font-medium text-foreground">Schema Types:</h4>
+                  {schemaData.types.map((schema, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-2 bg-muted rounded"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div
+                          className={`w-2 h-2 rounded-full ${
+                            schema.status === "valid"
+                              ? "bg-secondary"
+                              : schema.status === "warning"
+                              ? "bg-chart-4"
+                              : "bg-destructive"
+                          }`}
+                        ></div>
+                        <span className="text-sm font-medium text-foreground">
+                          {schema.type}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge
+                          variant={schema.implemented ? "default" : "secondary"}
+                          className="text-xs"
+                        >
+                          {schema.implemented ? "Implemented" : "Missing"}
+                        </Badge>
+                        <Badge
+                          variant={
+                            schema.status === "valid"
+                              ? "default"
+                              : schema.status === "warning"
+                              ? "outline"
+                              : "destructive"
+                          }
+                          className="text-xs"
+                        >
+                          {schema.status}
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Analytics Tracking */}
+        <Card className="bg-card border-border">
+          <CardHeader>
+            <div className="flex items-center gap-1">
+              <CardTitle className="flex items-center gap-2 text-foreground">
+                <Target className="w-5 h-5 text-primary" />
+                Analytics Tracking
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  Analytics tools and tracking tags implementation status
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
+            <CardDescription className="text-muted-foreground">
+              Analytics {analyticsData.enabled ? "enabled" : "disabled"} -{" "}
+              {
+                analyticsData.tags.filter((tag) => tag.status === "active")
+                  .length
+              }{" "}
+              active tags
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <Badge
+                  variant={analyticsData.enabled ? "default" : "destructive"}
+                >
+                  {analyticsData.enabled
+                    ? "Analytics Enabled"
+                    : "Analytics Disabled"}
+                </Badge>
+                <span className="text-sm text-muted-foreground">
+                  Tracking status
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {analyticsData.tags.map((tag, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-muted rounded-lg"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`w-3 h-3 rounded-full ${
+                          tag.status === "active"
+                            ? "bg-secondary"
+                            : "bg-muted-foreground"
+                        }`}
+                      ></div>
+                      <div>
+                        <div className="font-medium text-foreground">
+                          {tag.name}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {tag.id}
+                        </div>
+                      </div>
+                    </div>
+                    <Badge
+                      variant={
+                        tag.status === "active" ? "default" : "secondary"
+                      }
+                      className="text-xs"
+                    >
+                      {tag.status}
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Search Terms Section */}
+      <div className="space-y-6">
+        <div className="flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-foreground">
+            Search Terms Performance
+          </h2>
+          <Badge variant="outline" className="text-xs">
+            Top Performing Keywords
+          </Badge>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Branded Terms */}
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  <CardTitle className="flex items-center gap-2 text-foreground">
+                    <Search className="w-5 h-5 text-primary" />
+                    Pages Top Branded Terms
+                  </CardTitle>
+                  <div className="relative group">
+                    <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                      Search terms that include your brand name
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button className="p-1 hover:bg-muted rounded">
+                    <span className="text-muted-foreground">⋯</span>
+                  </button>
+                  <button className="p-1 hover:bg-muted rounded">
+                    <span className="text-muted-foreground">↓</span>
+                  </button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                        Search Term
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        Impressions
+                        <span className="ml-1 text-muted-foreground">↓</span>
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        Clicks
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        CTR
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        Position
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {brandedTermsData.map((term, index) => (
+                      <tr key={index} className="border-b border-border/50">
+                        <td className="py-2 px-2 text-sm text-foreground">
+                          {term.searchTerm}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right">
+                          {term.impressions.toLocaleString()}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right">
+                          {term.clicks}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right">
+                          {term.ctr.toFixed(2)}%
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right">
+                          {term.position}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Unbranded Terms */}
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  <CardTitle className="flex items-center gap-2 text-foreground">
+                    <Search className="w-5 h-5 text-primary" />
+                    Pages Top Unbranded Terms
+                  </CardTitle>
+                  <div className="relative group">
+                    <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                      Generic search terms that don't include your brand name
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button className="p-1 hover:bg-muted rounded">
+                    <span className="text-muted-foreground">⋯</span>
+                  </button>
+                  <button className="p-1 hover:bg-muted rounded">
+                    <span className="text-muted-foreground">↓</span>
+                  </button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                        Search Term
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        Impressions
+                        <span className="ml-1 text-muted-foreground">↓</span>
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        Clicks
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        CTR
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        Position
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {unbrandedTermsData.map((term, index) => (
+                      <tr key={index} className="border-b border-border/50">
+                        <td className="py-2 px-2 text-sm text-foreground">
+                          {term.searchTerm}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right">
+                          {term.impressions.toLocaleString()}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right">
+                          {term.clicks}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right">
+                          {term.ctr.toFixed(2)}%
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right">
+                          {term.position}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       {/* AI Visibility Score */}
