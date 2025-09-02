@@ -577,6 +577,167 @@ export function PagesOverviewDashboard() {
         </Card>
       </div>
 
+      {/* AI Insights and Recommendations */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <Card className="lg:col-span-2 bg-card border-border">
+          <CardHeader>
+            <div className="flex items-center gap-1">
+              <CardTitle className="flex items-center gap-2 text-foreground">
+                <Bot className="w-5 h-5 text-primary" />
+                AI-Powered Insights
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  AI-generated insights and recommendations based on your page
+                  performance data
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
+            <CardDescription className="text-muted-foreground">
+              Automated analysis of your pages performance
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="p-4 bg-muted rounded-lg border border-border">
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-secondary rounded-full mt-2"></div>
+                <div>
+                  <h4 className="font-medium text-foreground">
+                    Strong Search Visibility
+                  </h4>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Your pages are performing 18% above industry average for
+                    search impressions. The &ldquo;Daniel&apos;s Ice Cream
+                    locations&rdquo; page is your top performer with 340K
+                    monthly impressions.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 bg-muted rounded-lg border border-border">
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-chart-4 rounded-full mt-2"></div>
+                <div>
+                  <h4 className="font-medium text-foreground">
+                    CTA Optimization Opportunity
+                  </h4>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Product pages have 12% conversion rate vs 7% on blog posts.
+                    Consider adding more prominent CTAs to blog content to
+                    capture reader interest.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 bg-muted rounded-lg border border-border">
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
+                <div>
+                  <h4 className="font-medium text-foreground">
+                    Growing AI Citation Authority
+                  </h4>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Your content is being cited 28% more by AI systems this
+                    month. This indicates high content quality and relevance for
+                    user queries.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-card border-border">
+          <CardHeader>
+            <div className="flex items-center gap-1">
+              <CardTitle className="text-foreground">
+                Recommended Actions
+              </CardTitle>
+              <div className="relative group">
+                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                  Prioritized action items to improve your page performance and
+                  user experience
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                </div>
+              </div>
+            </div>
+            <CardDescription className="text-muted-foreground">
+              Priority improvements for your pages
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 text-chart-4" />
+                  <span className="text-sm font-medium text-foreground">
+                    Optimize Blog CTAs
+                  </span>
+                </div>
+                <Badge variant="outline" className="text-xs">
+                  High Impact
+                </Badge>
+              </div>
+              <Progress value={75} className="h-2" />
+              <p className="text-xs text-muted-foreground">
+                Add compelling CTAs to blog posts to match product page
+                performance
+              </p>
+            </div>
+
+            <Separator />
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-chart-2" />
+                  <span className="text-sm font-medium text-foreground">
+                    Improve Load Speed
+                  </span>
+                </div>
+                <Badge variant="outline" className="text-xs">
+                  Medium Impact
+                </Badge>
+              </div>
+              <Progress value={45} className="h-2" />
+              <p className="text-xs text-muted-foreground">
+                Optimize images and scripts to reduce page load time by 0.8s
+              </p>
+            </div>
+
+            <Separator />
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Users className="w-4 h-4 text-secondary" />
+                  <span className="text-sm font-medium text-foreground">
+                    Mobile Experience
+                  </span>
+                </div>
+                <Badge variant="outline" className="text-xs">
+                  Low Impact
+                </Badge>
+              </div>
+              <Progress value={25} className="h-2" />
+              <p className="text-xs text-muted-foreground">
+                Enhance mobile navigation for better user engagement
+              </p>
+            </div>
+
+            <Button className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground">
+              <ArrowUpRight className="w-4 h-4 mr-2" />
+              View All Recommendations
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Performance Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="bg-card border-border">
@@ -697,6 +858,66 @@ export function PagesOverviewDashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* AI Visibility Score */}
+      <Card className="bg-card border-border">
+        <CardHeader>
+          <div className="flex items-center gap-1">
+            <CardTitle className="flex items-center gap-2 text-foreground">
+              <Bot className="w-5 h-5 text-primary" />
+              AI Visibility Score
+            </CardTitle>
+            <div className="relative group">
+              <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                How frequently AI models are mentioning your brand in answers to
+                unbranded queries that are relevant to your business
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+              </div>
+            </div>
+          </div>
+          <CardDescription className="text-muted-foreground">
+            Visibility scores across different AI models
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ChartContainer
+            config={{
+              visibilityScore: {
+                label: "Visibility Score",
+                color: "hsl(var(--chart-1))",
+              },
+            }}
+            className="h-[200px]"
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={aiVisibilityData}>
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="hsl(var(--border))"
+                />
+                <XAxis dataKey="model" stroke="hsl(var(--muted-foreground))" />
+                <YAxis
+                  stroke="hsl(var(--muted-foreground))"
+                  domain={[0, 100]}
+                  tickFormatter={(value) => `${value}%`}
+                />
+                <ChartTooltip
+                  formatter={(value: number) => [
+                    `${value}%`,
+                    "Visibility Score",
+                  ]}
+                />
+                <Bar
+                  dataKey="visibilityScore"
+                  fill="hsl(var(--chart-1))"
+                  radius={[4, 4, 0, 0]}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </CardContent>
+      </Card>
 
       {/* Traffic Sources Heat Map and CTA Clicks */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -991,549 +1212,6 @@ export function PagesOverviewDashboard() {
         </CardContent>
       </Card>
 
-      {/* AI Insights and Recommendations */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="lg:col-span-2 bg-card border-border">
-          <CardHeader>
-            <div className="flex items-center gap-1">
-              <CardTitle className="flex items-center gap-2 text-foreground">
-                <Bot className="w-5 h-5 text-primary" />
-                AI-Powered Insights
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  AI-generated insights and recommendations based on your page
-                  performance data
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <CardDescription className="text-muted-foreground">
-              Automated analysis of your pages performance
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="p-4 bg-muted rounded-lg border border-border">
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-secondary rounded-full mt-2"></div>
-                <div>
-                  <h4 className="font-medium text-foreground">
-                    Strong Search Visibility
-                  </h4>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Your pages are performing 18% above industry average for
-                    search impressions. The &ldquo;Daniel&apos;s Ice Cream
-                    locations&rdquo; page is your top performer with 340K
-                    monthly impressions.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 bg-muted rounded-lg border border-border">
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-chart-4 rounded-full mt-2"></div>
-                <div>
-                  <h4 className="font-medium text-foreground">
-                    CTA Optimization Opportunity
-                  </h4>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Product pages have 12% conversion rate vs 7% on blog posts.
-                    Consider adding more prominent CTAs to blog content to
-                    capture reader interest.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 bg-muted rounded-lg border border-border">
-              <div className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-primary rounded-full mt-2"></div>
-                <div>
-                  <h4 className="font-medium text-foreground">
-                    Growing AI Citation Authority
-                  </h4>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Your content is being cited 28% more by AI systems this
-                    month. This indicates high content quality and relevance for
-                    user queries.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-card border-border">
-          <CardHeader>
-            <div className="flex items-center gap-1">
-              <CardTitle className="text-foreground">
-                Recommended Actions
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Prioritized action items to improve your page performance and
-                  user experience
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <CardDescription className="text-muted-foreground">
-              Priority improvements for your pages
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 text-chart-4" />
-                  <span className="text-sm font-medium text-foreground">
-                    Optimize Blog CTAs
-                  </span>
-                </div>
-                <Badge variant="outline" className="text-xs">
-                  High Impact
-                </Badge>
-              </div>
-              <Progress value={75} className="h-2" />
-              <p className="text-xs text-muted-foreground">
-                Add compelling CTAs to blog posts to match product page
-                performance
-              </p>
-            </div>
-
-            <Separator />
-
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-chart-2" />
-                  <span className="text-sm font-medium text-foreground">
-                    Improve Load Speed
-                  </span>
-                </div>
-                <Badge variant="outline" className="text-xs">
-                  Medium Impact
-                </Badge>
-              </div>
-              <Progress value={45} className="h-2" />
-              <p className="text-xs text-muted-foreground">
-                Optimize images and scripts to reduce page load time by 0.8s
-              </p>
-            </div>
-
-            <Separator />
-
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4 text-secondary" />
-                  <span className="text-sm font-medium text-foreground">
-                    Mobile Experience
-                  </span>
-                </div>
-                <Badge variant="outline" className="text-xs">
-                  Low Impact
-                </Badge>
-              </div>
-              <Progress value={25} className="h-2" />
-              <p className="text-xs text-muted-foreground">
-                Enhance mobile navigation for better user engagement
-              </p>
-            </div>
-
-            <Button className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground">
-              <ArrowUpRight className="w-4 h-4 mr-2" />
-              View All Recommendations
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Page Health Section */}
-      <div className="space-y-6">
-        <div className="flex items-center gap-2">
-          <h2 className="text-2xl font-bold text-foreground">Page Health</h2>
-          <Badge variant="outline" className="text-xs">
-            Overall Score: 89/100
-          </Badge>
-        </div>
-
-        {/* Page Speed Metrics */}
-        <Card className="bg-card border-border">
-          <CardHeader>
-            <div className="flex items-center gap-1">
-              <CardTitle className="flex items-center gap-2 text-foreground">
-                <Clock className="w-5 h-5 text-primary" />
-                Page Speed Metrics
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Lighthouse performance metrics and Core Web Vitals
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <CardDescription className="text-muted-foreground">
-              Lighthouse scores and Core Web Vitals performance
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">
-                  {pageSpeedData.performance}
-                </div>
-                <div className="text-sm text-muted-foreground">Performance</div>
-                <Progress value={pageSpeedData.performance} className="mt-2" />
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">
-                  {pageSpeedData.accessibility}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Accessibility
-                </div>
-                <Progress
-                  value={pageSpeedData.accessibility}
-                  className="mt-2"
-                />
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">
-                  {pageSpeedData.bestPractices}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Best Practices
-                </div>
-                <Progress
-                  value={pageSpeedData.bestPractices}
-                  className="mt-2"
-                />
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">
-                  {pageSpeedData.seo}
-                </div>
-                <div className="text-sm text-muted-foreground">SEO</div>
-                <Progress value={pageSpeedData.seo} className="mt-2" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="text-center p-3 bg-muted rounded-lg">
-                <div className="text-lg font-semibold text-foreground">
-                  {pageSpeedData.firstContentfulPaint}s
-                </div>
-                <div className="text-xs text-muted-foreground">FCP</div>
-                <Badge
-                  variant={
-                    pageSpeedData.firstContentfulPaint < 1.8
-                      ? "default"
-                      : "destructive"
-                  }
-                  className="text-xs mt-1"
-                >
-                  {pageSpeedData.firstContentfulPaint < 1.8
-                    ? "Good"
-                    : "Needs Improvement"}
-                </Badge>
-              </div>
-              <div className="text-center p-3 bg-muted rounded-lg">
-                <div className="text-lg font-semibold text-foreground">
-                  {pageSpeedData.largestContentfulPaint}s
-                </div>
-                <div className="text-xs text-muted-foreground">LCP</div>
-                <Badge
-                  variant={
-                    pageSpeedData.largestContentfulPaint < 2.5
-                      ? "default"
-                      : "destructive"
-                  }
-                  className="text-xs mt-1"
-                >
-                  {pageSpeedData.largestContentfulPaint < 2.5
-                    ? "Good"
-                    : "Needs Improvement"}
-                </Badge>
-              </div>
-              <div className="text-center p-3 bg-muted rounded-lg">
-                <div className="text-lg font-semibold text-foreground">
-                  {pageSpeedData.cumulativeLayoutShift}
-                </div>
-                <div className="text-xs text-muted-foreground">CLS</div>
-                <Badge
-                  variant={
-                    pageSpeedData.cumulativeLayoutShift < 0.1
-                      ? "default"
-                      : "destructive"
-                  }
-                  className="text-xs mt-1"
-                >
-                  {pageSpeedData.cumulativeLayoutShift < 0.1
-                    ? "Good"
-                    : "Needs Improvement"}
-                </Badge>
-              </div>
-              <div className="text-center p-3 bg-muted rounded-lg">
-                <div className="text-lg font-semibold text-foreground">
-                  {pageSpeedData.firstInputDelay}s
-                </div>
-                <div className="text-xs text-muted-foreground">FID</div>
-                <Badge
-                  variant={
-                    pageSpeedData.firstInputDelay < 0.1
-                      ? "default"
-                      : "destructive"
-                  }
-                  className="text-xs mt-1"
-                >
-                  {pageSpeedData.firstInputDelay < 0.1
-                    ? "Good"
-                    : "Needs Improvement"}
-                </Badge>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* WCAG Accessibility and Schema Info */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card className="bg-card border-border">
-            <CardHeader>
-              <div className="flex items-center gap-1">
-                <CardTitle className="flex items-center gap-2 text-foreground">
-                  <Users className="w-5 h-5 text-primary" />
-                  WCAG Accessibility
-                </CardTitle>
-                <div className="relative group">
-                  <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                    Web Content Accessibility Guidelines compliance
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                  </div>
-                </div>
-              </div>
-              <CardDescription className="text-muted-foreground">
-                Overall Score: {wcagData.overallScore}/100
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-foreground">
-                    {wcagData.overallScore}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Accessibility Score
-                  </div>
-                  <Progress value={wcagData.overallScore} className="mt-2" />
-                </div>
-
-                <div className="space-y-3">
-                  <h4 className="font-medium text-foreground">Issues Found:</h4>
-                  {wcagData.issues.map((issue, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-3 p-3 bg-muted rounded-lg"
-                    >
-                      <div
-                        className={`w-3 h-3 rounded-full ${
-                          issue.severity === "high"
-                            ? "bg-destructive"
-                            : issue.severity === "medium"
-                            ? "bg-chart-4"
-                            : "bg-secondary"
-                        }`}
-                      ></div>
-                      <div className="flex-1">
-                        <div className="text-sm font-medium text-foreground">
-                          {issue.description}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {issue.count} instances
-                        </div>
-                      </div>
-                      <Badge variant="outline" className="text-xs capitalize">
-                        {issue.severity}
-                      </Badge>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-card border-border">
-            <CardHeader>
-              <div className="flex items-center gap-1">
-                <CardTitle className="flex items-center gap-2 text-foreground">
-                  <Search className="w-5 h-5 text-primary" />
-                  Schema Information
-                </CardTitle>
-                <div className="relative group">
-                  <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                    Structured data markup validation and implementation
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                  </div>
-                </div>
-              </div>
-              <CardDescription className="text-muted-foreground">
-                {schemaData.implementedTypes}/{schemaData.totalTypes} schema
-                types implemented
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <Badge
-                    variant={
-                      schemaData.validationStatus === "valid"
-                        ? "default"
-                        : "destructive"
-                    }
-                  >
-                    {schemaData.validationStatus === "valid"
-                      ? "Valid"
-                      : "Errors Found"}
-                  </Badge>
-                  <span className="text-sm text-muted-foreground">
-                    Schema validation status
-                  </span>
-                </div>
-
-                <div className="space-y-2">
-                  <h4 className="font-medium text-foreground">Schema Types:</h4>
-                  {schemaData.types.map((schema, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-2 bg-muted rounded"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div
-                          className={`w-2 h-2 rounded-full ${
-                            schema.status === "valid"
-                              ? "bg-secondary"
-                              : schema.status === "warning"
-                              ? "bg-chart-4"
-                              : "bg-destructive"
-                          }`}
-                        ></div>
-                        <span className="text-sm font-medium text-foreground">
-                          {schema.type}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Badge
-                          variant={schema.implemented ? "default" : "secondary"}
-                          className="text-xs"
-                        >
-                          {schema.implemented ? "Implemented" : "Missing"}
-                        </Badge>
-                        <Badge
-                          variant={
-                            schema.status === "valid"
-                              ? "default"
-                              : schema.status === "warning"
-                              ? "outline"
-                              : "destructive"
-                          }
-                          className="text-xs"
-                        >
-                          {schema.status}
-                        </Badge>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Analytics Tracking */}
-        <Card className="bg-card border-border">
-          <CardHeader>
-            <div className="flex items-center gap-1">
-              <CardTitle className="flex items-center gap-2 text-foreground">
-                <Target className="w-5 h-5 text-primary" />
-                Analytics Tracking
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Analytics tools and tracking tags implementation status
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <CardDescription className="text-muted-foreground">
-              Analytics {analyticsData.enabled ? "enabled" : "disabled"} -{" "}
-              {
-                analyticsData.tags.filter((tag) => tag.status === "active")
-                  .length
-              }{" "}
-              active tags
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Badge
-                  variant={analyticsData.enabled ? "default" : "destructive"}
-                >
-                  {analyticsData.enabled
-                    ? "Analytics Enabled"
-                    : "Analytics Disabled"}
-                </Badge>
-                <span className="text-sm text-muted-foreground">
-                  Tracking status
-                </span>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {analyticsData.tags.map((tag, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-3 bg-muted rounded-lg"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`w-3 h-3 rounded-full ${
-                          tag.status === "active"
-                            ? "bg-secondary"
-                            : "bg-muted-foreground"
-                        }`}
-                      ></div>
-                      <div>
-                        <div className="font-medium text-foreground">
-                          {tag.name}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {tag.id}
-                        </div>
-                      </div>
-                    </div>
-                    <Badge
-                      variant={
-                        tag.status === "active" ? "default" : "secondary"
-                      }
-                      className="text-xs"
-                    >
-                      {tag.status}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
       {/* Search Terms Section */}
       <div className="space-y-6">
         <div className="flex items-center gap-2">
@@ -1700,66 +1378,6 @@ export function PagesOverviewDashboard() {
           </Card>
         </div>
       </div>
-
-      {/* AI Visibility Score */}
-      <Card className="bg-card border-border">
-        <CardHeader>
-          <div className="flex items-center gap-1">
-            <CardTitle className="flex items-center gap-2 text-foreground">
-              <Bot className="w-5 h-5 text-primary" />
-              AI Visibility Score
-            </CardTitle>
-            <div className="relative group">
-              <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                How frequently AI models are mentioning your brand in answers to
-                unbranded queries that are relevant to your business
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-              </div>
-            </div>
-          </div>
-          <CardDescription className="text-muted-foreground">
-            Visibility scores across different AI models
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ChartContainer
-            config={{
-              visibilityScore: {
-                label: "Visibility Score",
-                color: "hsl(var(--chart-1))",
-              },
-            }}
-            className="h-[200px]"
-          >
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={aiVisibilityData}>
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  stroke="hsl(var(--border))"
-                />
-                <XAxis dataKey="model" stroke="hsl(var(--muted-foreground))" />
-                <YAxis
-                  stroke="hsl(var(--muted-foreground))"
-                  domain={[0, 100]}
-                  tickFormatter={(value) => `${value}%`}
-                />
-                <ChartTooltip
-                  formatter={(value: number) => [
-                    `${value}%`,
-                    "Visibility Score",
-                  ]}
-                />
-                <Bar
-                  dataKey="visibilityScore"
-                  fill="hsl(var(--chart-1))"
-                  radius={[4, 4, 0, 0]}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-        </CardContent>
-      </Card>
     </div>
   );
 }
