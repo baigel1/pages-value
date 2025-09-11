@@ -24,8 +24,6 @@ import {
 import {
   Line,
   LineChart,
-  Bar,
-  BarChart,
   Area,
   AreaChart,
   XAxis,
@@ -72,19 +70,6 @@ const pageViewsOverTimeData = [
   { date: "Mar 5", pageViews: 58000 },
   { date: "Mar 12", pageViews: 62000 },
   { date: "Mar 19", pageViews: 65000 },
-];
-
-const aiVisibilityData = [
-  { model: "ChatGPT", visibilityScore: 50 },
-  { model: "Gemini", visibilityScore: 58 },
-  { model: "Perplexity", visibilityScore: 67 },
-];
-
-const ctaClicksData = [
-  { type: "Get Directions", clicks: 2840, percentage: 39 },
-  { type: "Call", clicks: 1820, percentage: 25 },
-  { type: "Order Online", clicks: 1460, percentage: 20 },
-  { type: "Book an Appointment", clicks: 1160, percentage: 16 },
 ];
 
 // CTA Clicks Over Time Data
