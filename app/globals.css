@@ -148,3 +148,12 @@
 [data-state="closed"] {
   animation: fadeOut 0.1s ease-in;
 }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

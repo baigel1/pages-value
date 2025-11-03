@@ -1,9 +1,8 @@
-import { PagesOverviewDashboard } from "@/components/pages-overview-dashboard";
-
-export default function Home() {
+export default function OverviewPage() {
   return (
-    <main className="min-h-screen bg-background">
-      <PagesOverviewDashboard />
-    </main>
+    <div className="max-w-7xl mx-auto">
+      <h1 className="text-3xl font-bold mb-4">Overview</h1>
+      <p className="text-muted-foreground">Overview content goes here.</p>
+    </div>
   );
 }
