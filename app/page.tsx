@@ -1,8 +1,13 @@
+import { SiteHeader } from "@/components/site-header";
+import { SitePreview } from "@/components/site-preview";
+import { AnalyticsSection } from "@/components/analytics-section";
+
 export default function OverviewPage() {
   return (
-    <div className="max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Overview</h1>
-      <p className="text-muted-foreground">Overview content goes here.</p>
+    <div className="min-h-screen bg-white">
+      <SiteHeader />
+      <SitePreview />
+      <AnalyticsSection />
     </div>
   );
 }
