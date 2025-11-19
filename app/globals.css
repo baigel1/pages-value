@@ -149,6 +149,22 @@
   animation: fadeOut 0.1s ease-in;
 }
 
+/* Section transition animations */
+@keyframes sectionFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-transition {
+  animation: sectionFadeIn 0.3s ease-out;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
