@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { TopNav } from "@/components/top-nav";
+import { MetricCard } from "@/components/metric-card";
 
 import {
   Line,
@@ -42,6 +43,27 @@ import {
   Info,
   Bot,
 } from "lucide-react";
+
+// Helper function to generate chart data for metric cards
+function generateChartData(baseValue: number, days: number = 7) {
+  const seed = baseValue % 1000;
+  return Array.from({ length: days }, (_, i) => {
+    const trend = (i / days) * 0.15;
+    const variation =
+      Math.sin((i + seed) * 0.5) * 0.2 + Math.cos((i * 2 + seed) * 0.3) * 0.1;
+    const value = baseValue * (1 + trend + variation);
+    return { value: Math.max(0, Math.round(value)) };
+  });
+}
+
+// Calculate percentage change from first to last value in chart data
+function calculatePercentageChange(chartData: { value: number }[]): number {
+  if (chartData.length < 2) return 0;
+  const firstValue = chartData[0].value;
+  const lastValue = chartData[chartData.length - 1].value;
+  if (firstValue === 0) return 0;
+  return ((lastValue - firstValue) / firstValue) * 100;
+}
 
 // Mock data for the dashboard
 const performanceData = [
@@ -594,6 +616,76 @@ export function PagesOverviewDashboard() {
               AI-Powered Search
             </Badge>
           </div>
+
+          {/* Hero Numbers */}
+          {(() => {
+            // Calculate values from the latest data point
+            const latestData =
+              agenticInteractionsData[agenticInteractionsData.length - 1];
+            const totalAgenticInteractions =
+              latestData["AI Assistant"] +
+              latestData["AI Crawler"] +
+              latestData["AI Search"];
+            const aiCrawlerPercentage =
+              totalAgenticInteractions > 0
+                ? (latestData["AI Crawler"] / totalAgenticInteractions) * 100
+                : 0;
+            const aiSearchReferrals = latestData["AI Search"];
+
+            // Generate chart data for each metric
+            const agenticInteractionsChartData = generateChartData(
+              totalAgenticInteractions,
+              7
+            );
+            const aiCrawlerPercentageChartData = generateChartData(
+              aiCrawlerPercentage,
+              7
+            );
+            const aiSearchReferralsChartData = generateChartData(
+              aiSearchReferrals,
+              7
+            );
+
+            // Format values for display
+            const formatAgenticInteractions =
+              totalAgenticInteractions >= 1000
+                ? `${(totalAgenticInteractions / 1000).toFixed(1)}K`
+                : totalAgenticInteractions.toString();
+            const formatPercentage = `${aiCrawlerPercentage.toFixed(1)}%`;
+            const formatReferrals =
+              aiSearchReferrals >= 1000
+                ? `${(aiSearchReferrals / 1000).toFixed(1)}K`
+                : aiSearchReferrals.toString();
+
+            return (
+              <div className="grid grid-cols-3 gap-3">
+                <MetricCard
+                  title="Agentic Interactions"
+                  value={formatAgenticInteractions}
+                  chartData={agenticInteractionsChartData}
+                  percentageChange={calculatePercentageChange(
+                    agenticInteractionsChartData
+                  )}
+                />
+                <MetricCard
+                  title="Percentage of Traffic from AI Crawlers"
+                  value={formatPercentage}
+                  chartData={aiCrawlerPercentageChartData}
+                  percentageChange={calculatePercentageChange(
+                    aiCrawlerPercentageChartData
+                  )}
+                />
+                <MetricCard
+                  title="Referrals from AI Search"
+                  value={formatReferrals}
+                  chartData={aiSearchReferralsChartData}
+                  percentageChange={calculatePercentageChange(
+                    aiSearchReferralsChartData
+                  )}
+                />
+              </div>
+            );
+          })()}
 
           {/* Agentic Interactions Line Graph */}
           <Card className="bg-card border-border">
