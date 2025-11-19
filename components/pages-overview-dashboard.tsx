@@ -534,13 +534,8 @@ export function PagesOverviewDashboard() {
 
   return (
     <div className="space-y-0 max-w-7xl mx-auto w-full overflow-x-hidden">
-      <TopNav
-        items={navItems}
-        activeId={activeSection}
-        onNavigate={handleNavigate}
-      />
-      <div className="p-6 space-y-6 w-full min-w-0 overflow-x-hidden">
-        {/* Header */}
+      {/* Header */}
+      <div className="p-6 pb-4 w-full min-w-0">
         <div className="flex items-center justify-between w-full min-w-0">
           <div>
             <h1 className="text-3xl font-bold font-[family-name:var(--font-work-sans)] text-foreground">
@@ -586,14 +581,20 @@ export function PagesOverviewDashboard() {
 
         {/* Site Filter Badge */}
         {selectedSite !== "all" && (
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-2 mt-4">
             <Badge variant="outline" className="text-xs">
               Filtered by:{" "}
               {sites.find((site) => site.id === selectedSite)?.name}
             </Badge>
           </div>
         )}
-
+      </div>
+      <TopNav
+        items={navItems}
+        activeId={activeSection}
+        onNavigate={handleNavigate}
+      />
+      <div className="p-6 space-y-6 w-full min-w-0 overflow-x-hidden">
         {/* Section 1: Agentic Interactions */}
         {activeSection === "agentic" && (
           <div className="space-y-6 w-full min-w-0 section-transition">
