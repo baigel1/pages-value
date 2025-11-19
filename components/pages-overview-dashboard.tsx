@@ -10,8 +10,6 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import {
   Select,
@@ -20,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { TopNav } from "@/components/top-nav";
 
 import {
   Line,
@@ -38,11 +37,10 @@ import {
   CheckCircle,
   ArrowUpRight,
   Star,
-  Users,
-  Clock,
   Target,
   Eye,
   Info,
+  Bot,
 } from "lucide-react";
 
 // Mock data for the dashboard
@@ -68,6 +66,199 @@ const pageViewsOverTimeData = [
   { date: "Mar 5", pageViews: 58000 },
   { date: "Mar 12", pageViews: 62000 },
   { date: "Mar 19", pageViews: 65000 },
+];
+
+// Agentic Interactions Over Time Data
+const agenticInteractionsData = [
+  { date: "Jan 1", "AI Assistant": 450, "AI Crawler": 320, "AI Search": 280 },
+  { date: "Jan 8", "AI Assistant": 480, "AI Crawler": 340, "AI Search": 295 },
+  { date: "Jan 15", "AI Assistant": 520, "AI Crawler": 360, "AI Search": 310 },
+  { date: "Jan 22", "AI Assistant": 550, "AI Crawler": 380, "AI Search": 325 },
+  { date: "Jan 29", "AI Assistant": 580, "AI Crawler": 400, "AI Search": 340 },
+  { date: "Feb 5", "AI Assistant": 620, "AI Crawler": 420, "AI Search": 360 },
+  { date: "Feb 12", "AI Assistant": 650, "AI Crawler": 440, "AI Search": 380 },
+  { date: "Feb 19", "AI Assistant": 680, "AI Crawler": 460, "AI Search": 400 },
+  { date: "Feb 26", "AI Assistant": 720, "AI Crawler": 480, "AI Search": 420 },
+  { date: "Mar 5", "AI Assistant": 750, "AI Crawler": 500, "AI Search": 440 },
+  { date: "Mar 12", "AI Assistant": 780, "AI Crawler": 520, "AI Search": 460 },
+  { date: "Mar 19", "AI Assistant": 820, "AI Crawler": 540, "AI Search": 480 },
+];
+
+// Agentic Interactions Leaderboard Data
+const agenticLeaderboardData = [
+  {
+    pageName: "Yext Roasters - Downtown Raleigh",
+    entityId: 49285,
+    pageGroup: "Location Pages",
+    aiAssistant: 1250,
+    aiCrawler: 890,
+    aiSearch: 720,
+  },
+  {
+    pageName: "Yext Roasters - Columbia Center",
+    entityId: 46175,
+    pageGroup: "Location Pages",
+    aiAssistant: 980,
+    aiCrawler: 720,
+    aiSearch: 580,
+  },
+  {
+    pageName: "Yext Roasters - Greenville Plaza",
+    entityId: 66063,
+    pageGroup: "Location Pages",
+    aiAssistant: 850,
+    aiCrawler: 620,
+    aiSearch: 490,
+  },
+  {
+    pageName: "Yext Roasters - Charlotte Uptown",
+    entityId: 52341,
+    pageGroup: "Location Pages",
+    aiAssistant: 720,
+    aiCrawler: 540,
+    aiSearch: 420,
+  },
+  {
+    pageName: "Yext Roasters - Wilmington Waterfront",
+    entityId: 58792,
+    pageGroup: "Location Pages",
+    aiAssistant: 680,
+    aiCrawler: 510,
+    aiSearch: 390,
+  },
+  {
+    pageName: "Yext Roasters - Clemson Campus",
+    entityId: 63478,
+    pageGroup: "Location Pages",
+    aiAssistant: 620,
+    aiCrawler: 480,
+    aiSearch: 360,
+  },
+  {
+    pageName: "Yext Roasters - Anderson Mall",
+    entityId: 71234,
+    pageGroup: "Location Pages",
+    aiAssistant: 580,
+    aiCrawler: 450,
+    aiSearch: 340,
+  },
+  {
+    pageName: "Yext Roasters - Franklin Square",
+    entityId: 44567,
+    pageGroup: "Location Pages",
+    aiAssistant: 540,
+    aiCrawler: 420,
+    aiSearch: 320,
+  },
+  {
+    pageName: "Yext Roasters - Greenwood Center",
+    entityId: 82345,
+    pageGroup: "Location Pages",
+    aiAssistant: 510,
+    aiCrawler: 390,
+    aiSearch: 300,
+  },
+].map((item) => ({
+  ...item,
+  totalAgenticInteractions: item.aiAssistant + item.aiCrawler + item.aiSearch,
+}));
+
+// Search Impressions Leaderboard Data
+const searchImpressionsLeaderboardData = [
+  {
+    pageName: "Yext Roasters - Downtown Raleigh",
+    entityId: 49285,
+    impressions: 185000,
+  },
+  {
+    pageName: "Yext Roasters - Columbia Center",
+    entityId: 46175,
+    impressions: 142000,
+  },
+  {
+    pageName: "Yext Roasters - Greenville Plaza",
+    entityId: 66063,
+    impressions: 118000,
+  },
+  {
+    pageName: "Yext Roasters - Charlotte Uptown",
+    entityId: 52341,
+    impressions: 98000,
+  },
+  {
+    pageName: "Yext Roasters - Wilmington Waterfront",
+    entityId: 58792,
+    impressions: 87000,
+  },
+  {
+    pageName: "Yext Roasters - Clemson Campus",
+    entityId: 63478,
+    impressions: 76000,
+  },
+  {
+    pageName: "Yext Roasters - Anderson Mall",
+    entityId: 71234,
+    impressions: 68000,
+  },
+  {
+    pageName: "Yext Roasters - Franklin Square",
+    entityId: 44567,
+    impressions: 62000,
+  },
+  {
+    pageName: "Yext Roasters - Greenwood Center",
+    entityId: 82345,
+    impressions: 58000,
+  },
+];
+
+// CTR Leaderboard Data
+const ctrLeaderboardData = [
+  {
+    pageName: "Yext Roasters - Downtown Raleigh",
+    entityId: 49285,
+    ctr: 12.5,
+  },
+  {
+    pageName: "Yext Roasters - Columbia Center",
+    entityId: 46175,
+    ctr: 11.8,
+  },
+  {
+    pageName: "Yext Roasters - Greenville Plaza",
+    entityId: 66063,
+    ctr: 11.2,
+  },
+  {
+    pageName: "Yext Roasters - Charlotte Uptown",
+    entityId: 52341,
+    ctr: 10.9,
+  },
+  {
+    pageName: "Yext Roasters - Wilmington Waterfront",
+    entityId: 58792,
+    ctr: 10.5,
+  },
+  {
+    pageName: "Yext Roasters - Clemson Campus",
+    entityId: 63478,
+    ctr: 10.2,
+  },
+  {
+    pageName: "Yext Roasters - Anderson Mall",
+    entityId: 71234,
+    ctr: 9.8,
+  },
+  {
+    pageName: "Yext Roasters - Franklin Square",
+    entityId: 44567,
+    ctr: 9.5,
+  },
+  {
+    pageName: "Yext Roasters - Greenwood Center",
+    entityId: 82345,
+    ctr: 9.2,
+  },
 ];
 
 // CTA Clicks Over Time Data
@@ -158,119 +349,66 @@ const ctaClicksOverTimeData = [
   },
 ];
 
-// Page Health Data
-const pageSpeedData = {
-  performance: 87,
-  accessibility: 92,
-  bestPractices: 89,
-  seo: 95,
-  firstContentfulPaint: 1.2,
-  largestContentfulPaint: 2.8,
-  cumulativeLayoutShift: 0.08,
-  firstInputDelay: 0.15,
-};
-
-const wcagData = {
-  overallScore: 88,
-  issues: [
-    { severity: "high", description: "Missing alt text on 3 images", count: 3 },
-    {
-      severity: "medium",
-      description: "Color contrast ratio below 4.5:1",
-      count: 2,
-    },
-    {
-      severity: "low",
-      description: "Missing ARIA labels on form inputs",
-      count: 1,
-    },
-  ],
-};
-
-const schemaData = {
-  types: [
-    { type: "Organization", status: "valid", implemented: true },
-    { type: "LocalBusiness", status: "valid", implemented: true },
-    { type: "Restaurant", status: "valid", implemented: true },
-    { type: "Menu", status: "warning", implemented: true },
-    { type: "Review", status: "error", implemented: false },
-    { type: "Event", status: "valid", implemented: true },
-  ],
-  validationStatus: "valid",
-  totalTypes: 6,
-  implementedTypes: 5,
-};
-
-const analyticsData = {
-  enabled: true,
-  tags: [
-    { name: "Google Analytics 4", status: "active", id: "G-XXXXXXXXXX" },
-    { name: "Google Tag Manager", status: "active", id: "GTM-XXXXXXX" },
-    { name: "Facebook Pixel", status: "active", id: "123456789" },
-    { name: "Bing Ads", status: "inactive", id: "BING-XXXXX" },
-  ],
-};
-
 // Search Terms Data
 const brandedTermsData = [
   {
-    searchTerm: "daniel's ice cream locations",
+    searchTerm: "yext roasters locations",
     impressions: 933,
     clicks: 1,
     ctr: 0.11,
     position: 54.9,
   },
   {
-    searchTerm: "daniel's ice cream greenville nc",
+    searchTerm: "yext roasters greenville nc",
     impressions: 867,
     clicks: 1,
     ctr: 0.12,
     position: 8.1,
   },
   {
-    searchTerm: "daniel's ice cream franklin nc",
+    searchTerm: "yext roasters franklin nc",
     impressions: 810,
     clicks: 0,
     ctr: 0.0,
     position: 10,
   },
   {
-    searchTerm: "daniel's ice cream greenwood sc",
+    searchTerm: "yext roasters greenwood sc",
     impressions: 738,
     clicks: 1,
     ctr: 0.14,
     position: 9.3,
   },
   {
-    searchTerm: "daniel's ice cream clemson",
+    searchTerm: "yext roasters clemson",
     impressions: 609,
     clicks: 0,
     ctr: 0.0,
     position: 11.6,
   },
   {
-    searchTerm: "daniel's ice cream raleigh nc",
+    searchTerm: "yext roasters raleigh nc",
     impressions: 547,
     clicks: 0,
     ctr: 0.0,
     position: 67.6,
   },
   {
-    searchTerm: "daniel's ice cream anderson sc",
+    searchTerm: "yext roasters anderson sc",
     impressions: 515,
     clicks: 0,
     ctr: 0.0,
     position: 8,
   },
   {
-    searchTerm: "daniel's ice cream raleigh",
+    searchTerm: "yext roasters raleigh",
     impressions: 511,
     clicks: 0,
     ctr: 0.0,
     position: 62.2,
   },
   {
-    searchTerm: "daniel's ice cream rock hill sc",
+    searchTerm: "yext roasters rock hill sc",
     impressions: 427,
     clicks: 0,
     ctr: 0.0,
@@ -280,204 +418,75 @@ const brandedTermsData = [
 
 const unbrandedTermsData = [
   {
-    searchTerm: "ice cream shop near me",
+    searchTerm: "coffee shop near me",
     impressions: 1579,
     clicks: 6,
     ctr: 0.38,
     position: 11.7,
   },
   {
-    searchTerm: "best ice cream raleigh",
+    searchTerm: "best coffee raleigh",
     impressions: 737,
     clicks: 0,
     ctr: 0.0,
     position: 9.4,
   },
   {
-    searchTerm: "homemade ice cream charlotte",
+    searchTerm: "artisan coffee charlotte",
     impressions: 636,
     clicks: 0,
     ctr: 0.0,
     position: 84.4,
   },
   {
-    searchTerm: "ice cream parlor greenville",
+    searchTerm: "coffee roaster greenville",
     impressions: 617,
     clicks: 4,
     ctr: 0.65,
     position: 8.6,
   },
   {
-    searchTerm: "gelato shop columbia sc",
+    searchTerm: "specialty coffee columbia sc",
     impressions: 609,
     clicks: 0,
     ctr: 0.0,
     position: 8.8,
   },
   {
-    searchTerm: "ice cream delivery raleigh",
+    searchTerm: "coffee delivery raleigh",
     impressions: 564,
     clicks: 0,
     ctr: 0.0,
     position: 67.3,
   },
   {
-    searchTerm: "frozen yogurt clemson",
+    searchTerm: "espresso clemson",
     impressions: 513,
     clicks: 1,
     ctr: 0.19,
     position: 9.8,
   },
   {
-    searchTerm: "ice cream cakes wilmington",
+    searchTerm: "coffee beans wilmington",
     impressions: 482,
     clicks: 0,
     ctr: 0.0,
     position: 87.5,
   },
   {
-    searchTerm: "dairy free ice cream columbia sc",
+    searchTerm: "organic coffee columbia sc",
     impressions: 471,
     clicks: 0,
     ctr: 0.0,
     position: 75.4,
   },
   {
-    searchTerm: "ice cream sundae anderson sc",
+    searchTerm: "coffee shop anderson sc",
     impressions: 452,
     clicks: 0,
     ctr: 0.0,
     position: 7.9,
   },
-];
-
-// Page Views Leaderboard Data
-const pageViewsLeaderboardData = [
-  {
-    rank: 1,
-    name: "Daniel's Ice Cream - Downtown Raleigh",
-    address: "123 Fayetteville Street Mall, Raleigh, NC 27601",
-    categories: "Ice Cream Shop",
-    city: "Raleigh",
-    entityId: 49285,
-    postalCode: "27601",
-    pageViews: 1374,
-  },
-  {
-    rank: 2,
-    name: "Daniel's Ice Cream - Columbia Center",
-    address: "1230 Main St, Columbia, SC 29201",
-    categories: "Ice Cream Shop",
-    city: "Columbia",
-    entityId: 46175,
-    postalCode: "29201",
-    pageViews: 278,
-  },
-  {
-    rank: 3,
-    name: "Daniel's Ice Cream - Greenville Plaza",
-    address: "456 Wade Hampton Blvd, Greenville, SC 29615",
-    categories: "Ice Cream Shop",
-    city: "Greenville",
-    entityId: 66063,
-    postalCode: "29615",
-    pageViews: 192,
-  },
-  {
-    rank: 4,
-    name: "Daniel's Ice Cream - Charlotte Uptown",
-    address: "789 Trade Street, Charlotte, NC 28202",
-    categories: "Ice Cream Shop",
-    city: "Charlotte",
-    entityId: 52341,
-    postalCode: "28202",
-    pageViews: 162,
-  },
-  {
-    rank: 5,
-    name: "Daniel's Ice Cream - Wilmington Waterfront",
-    address: "321 Front Street, Wilmington, NC 28401",
-    categories: "Ice Cream Shop",
-    city: "Wilmington",
-    entityId: 58792,
-    postalCode: "28401",
-    pageViews: 154,
-  },
-  {
-    rank: 6,
-    name: "Daniel's Ice Cream - Clemson Campus",
-    address: "654 College Avenue, Clemson, SC 29631",
-    categories: "Ice Cream Shop",
-    city: "Clemson",
-    entityId: 63478,
-    postalCode: "29631",
-    pageViews: 144,
-  },
-  {
-    rank: 7,
-    name: "Daniel's Ice Cream - Anderson Mall",
-    address: "987 Clemson Blvd, Anderson, SC 29621",
-    categories: "Ice Cream Shop",
-    city: "Anderson",
-    entityId: 71234,
-    postalCode: "29621",
-    pageViews: 118,
-  },
-  {
-    rank: 8,
-    name: "Daniel's Ice Cream - Franklin Square",
-    address: "456 Main Street, Franklin, NC 28734",
-    categories: "Ice Cream Shop",
-    city: "Franklin",
-    entityId: 44567,
-    postalCode: "28734",
-    pageViews: 115,
-  },
-  {
-    rank: 9,
-    name: "Daniel's Ice Cream - Greenwood Center",
-    address: "789 Bypass 72, Greenwood, SC 29649",
-    categories: "Ice Cream Shop",
-    city: "Greenwood",
-    entityId: 82345,
-    postalCode: "29649",
-    pageViews: 111,
-  },
-];
-
-const trafficSourceData = [
-  {
-    source: "Google Search",
-    week1: 8500,
-    week2: 9200,
-    week3: 8800,
-    week4: 9500,
-  },
-  { source: "Bing Search", week1: 1200, week2: 1350, week3: 1400, week4: 1600 },
-  { source: "ChatGPT", week1: 2800, week2: 3200, week3: 3800, week4: 4200 },
-  { source: "Claude", week1: 800, week2: 950, week3: 1100, week4: 1350 },
-  {
-    source: "Direct Traffic",
-    week1: 3200,
-    week2: 3400,
-    week3: 3600,
-    week4: 3800,
-  },
-  {
-    source: "Social Media",
-    week1: 1500,
-    week2: 1700,
-    week3: 1900,
-    week4: 2100,
-  },
-];
-
-// Date ranges for the weeks
-const weekDates = [
-  "Week of 9/7/2025",
-  "Week of 9/14/2025",
-  "Week of 9/21/2025",
-  "Week of 9/28/2025",
 ];
 
 // Site filter data
@@ -488,1270 +497,899 @@ const sites = [
 
 export function PagesOverviewDashboard() {
   const [selectedSite, setSelectedSite] = React.useState("all");
+  const [activeSection, setActiveSection] = React.useState("agentic");
+
+  const navItems = [
+    { id: "agentic", label: "Agentic Interactions" },
+    { id: "traditional", label: "Traditional Search" },
+    { id: "interactions", label: "User Interactions" },
+    { id: "pageviews", label: "Page Views" },
+  ];
+
+  const handleNavigate = (id: string) => {
+    setActiveSection(id);
+    const element = document.getElementById(id);
+    if (element) {
+      const navHeight = 64; // h-16 = 64px
+      const offset = navHeight + 16; // nav height + padding
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold font-[family-name:var(--font-work-sans)] text-foreground">
-            Daniel&apos;s Ice Cream Chain Pages Overview
-          </h1>
-          <p className="text-muted-foreground mt-1">
-            Performance insights and actionable recommendations for your pages
-          </p>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <label
-              htmlFor="site-filter"
-              className="text-sm font-medium text-foreground"
-            >
-              Filter by Site:
-            </label>
-            <Select value={selectedSite} onValueChange={setSelectedSite}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select a site" />
-              </SelectTrigger>
-              <SelectContent>
-                {sites.map((site) => (
-                  <SelectItem key={site.id} value={site.id}>
-                    {site.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+    <div className="space-y-0 max-w-7xl mx-auto">
+      <TopNav
+        items={navItems}
+        activeId={activeSection}
+        onNavigate={handleNavigate}
+      />
+      <div className="p-6 space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold font-[family-name:var(--font-work-sans)] text-foreground">
+              Yext Roasters Pages Overview
+            </h1>
+            <p className="text-muted-foreground mt-1">
+              Performance insights and actionable recommendations for your pages
+            </p>
           </div>
-          <div className="flex items-center gap-2">
-            <Badge
-              variant="secondary"
-              className="bg-secondary/10 text-secondary"
-            >
-              <CheckCircle className="w-3 h-3 mr-1" />
-              All systems operational
-            </Badge>
-            <Star className="w-5 h-5 text-muted-foreground" />
-          </div>
-        </div>
-      </div>
-
-      {/* Key Metrics Grid */}
-      {selectedSite !== "all" && (
-        <div className="flex items-center gap-2 mb-2">
-          <Badge variant="outline" className="text-xs">
-            Filtered by: {sites.find((site) => site.id === selectedSite)?.name}
-          </Badge>
-        </div>
-      )}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-card border-border">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <div className="flex items-center gap-1">
-              <CardTitle className="text-sm font-medium text-card-foreground">
-                Search Impressions
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-3 w-3 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Search impressions track the number of times your pages appear
-                  in Google search results
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <Search className="h-4 w-4 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-4xl font-bold text-foreground">1.94M</div>
-            <div className="flex items-center text-xs text-muted-foreground">
-              <TrendingUp className="w-3 h-3 mr-1 text-secondary" />
-              +2% from last month
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-card border-border">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <div className="flex items-center gap-1">
-              <CardTitle className="text-sm font-medium text-card-foreground">
-                Click-Through Rate
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-3 w-3 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Click-through rate measures the percentage of users who click
-                  on your pages after seeing them in search results
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <MousePointer className="h-4 w-4 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-4xl font-bold text-foreground">10.8%</div>
-            <div className="flex items-center text-xs text-muted-foreground">
-              <TrendingUp className="w-3 h-3 mr-1 text-secondary" />
-              +0.8% from last month
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-card border-border">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <div className="flex items-center gap-1">
-              <CardTitle className="text-sm font-medium text-card-foreground">
-                CTA Clicks
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-3 w-3 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  CTA (Call-to-Action) clicks track how many users click on
-                  buttons, links, or other action elements on your pages
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <Target className="h-4 w-4 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-4xl font-bold text-foreground">7.3K</div>
-            <div className="flex items-center text-xs text-muted-foreground">
-              <TrendingUp className="w-3 h-3 mr-1 text-secondary" />
-              +15% from last month
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-card border-border">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <div className="flex items-center gap-1">
-              <CardTitle className="text-sm font-medium text-card-foreground">
-                Page Views
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-3 w-3 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Page views count the total number of times your pages have
-                  been viewed by visitors
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <Eye className="h-4 w-4 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-4xl font-bold text-foreground">892K</div>
-            <div className="flex items-center text-xs text-muted-foreground">
-              <TrendingUp className="w-3 h-3 mr-1 text-secondary" />
-              +12% from last month
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Performance Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="bg-card border-border">
-          <CardHeader>
-            <div className="flex items-center gap-1">
-              <CardTitle className="text-foreground">
-                Search Performance Trend
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Shows how your search impressions and clicks have changed over
-                  the past 6 months
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <CardDescription className="text-muted-foreground">
-              Impressions and clicks over the last 6 months
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer
-              config={{
-                impressions: {
-                  label: "Impressions",
-                  color: "hsl(var(--chart-1))",
-                },
-                clicks: {
-                  label: "Clicks",
-                  color: "hsl(var(--chart-2))",
-                },
-              }}
-              className="h-[300px]"
-            >
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={performanceData}>
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke="hsl(var(--border))"
-                  />
-                  <XAxis
-                    dataKey="month"
-                    stroke="hsl(var(--muted-foreground))"
-                  />
-                  <YAxis stroke="hsl(var(--muted-foreground))" />
-                  <ChartTooltip />
-                  <Area
-                    type="monotone"
-                    dataKey="impressions"
-                    stackId="1"
-                    stroke="hsl(var(--chart-1))"
-                    fill="hsl(var(--chart-1))"
-                    fillOpacity={0.3}
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="clicks"
-                    stackId="2"
-                    stroke="hsl(var(--chart-2))"
-                    fill="hsl(var(--chart-2))"
-                    fillOpacity={0.6}
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-card border-border">
-          <CardHeader>
-            <div className="flex items-center gap-1">
-              <CardTitle className="text-foreground">
-                Page Views Over Time
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Shows how your page views have changed over the past 3 months
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <CardDescription className="text-muted-foreground">
-              Daily page view trends over the past 3 months
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer
-              config={{
-                pageViews: {
-                  label: "Page Views",
-                  color: "hsl(var(--chart-3))",
-                },
-              }}
-              className="h-[300px]"
-            >
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={pageViewsOverTimeData}>
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke="hsl(var(--border))"
-                  />
-                  <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" />
-                  <YAxis stroke="hsl(var(--muted-foreground))" />
-                  <ChartTooltip />
-                  <Line
-                    type="monotone"
-                    dataKey="pageViews"
-                    stroke="#22c55e"
-                    strokeWidth={3}
-                    connectNulls={true}
-                    activeDot={{ r: 6 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* AI Visibility Score */}
-      {/* <Card className="bg-card border-border">
-        <CardHeader>
-          <div className="flex items-center gap-1">
-            <CardTitle className="flex items-center gap-2 text-foreground">
-              <Bot className="w-5 h-5 text-primary" />
-              AI Visibility Score
-            </CardTitle>
-            <div className="relative group">
-              <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                How frequently AI models are mentioning your brand in answers to
-                unbranded queries that are relevant to your business
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-              </div>
-            </div>
-          </div>
-          <CardDescription className="text-muted-foreground">
-            Visibility scores across different AI models
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ChartContainer
-            config={{
-              visibilityScore: {
-                label: "Visibility Score",
-                color: "hsl(var(--chart-1))",
-              },
-            }}
-            className="h-[200px]"
-          >
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={aiVisibilityData}>
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  stroke="hsl(var(--border))"
-                />
-                <XAxis dataKey="model" stroke="hsl(var(--muted-foreground))" />
-                <YAxis
-                  stroke="hsl(var(--muted-foreground))"
-                  domain={[0, 100]}
-                  tickFormatter={(value) => `${value}%`}
-                />
-                <ChartTooltip
-                  formatter={(value: number) => [
-                    `${value}%`,
-                    "Visibility Score",
-                  ]}
-                />
-                <Bar
-                  dataKey="visibilityScore"
-                  fill="hsl(var(--chart-1))"
-                  radius={[4, 4, 0, 0]}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </ChartContainer>
-        </CardContent>
-      </Card> */}
-
-      {/* Traffic Sources Heat Map and CTA Clicks */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="bg-card border-border">
-          <CardHeader>
-            <div className="flex items-center gap-1">
-              <CardTitle className="flex items-center gap-2 text-foreground">
-                <Search className="w-5 h-5 text-primary" />
-                Traffic Sources Heat Map
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Visual representation of traffic volume from different sources
-                  over the past 4 weeks
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <CardDescription className="text-muted-foreground">
-              Traffic intensity by source over the last 4 weeks
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {/* Heat Map Legend */}
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Lower</span>
-                <div className="flex items-center gap-1">
-                  <div className="w-4 h-4 bg-blue-100 rounded"></div>
-                  <div className="w-4 h-4 bg-blue-200 rounded"></div>
-                  <div className="w-4 h-4 bg-blue-300 rounded"></div>
-                  <div className="w-4 h-4 bg-blue-400 rounded"></div>
-                  <div className="w-4 h-4 bg-blue-500 rounded"></div>
-                  <div className="w-4 h-4 bg-blue-600 rounded"></div>
-                </div>
-                <span className="text-muted-foreground">Higher</span>
-              </div>
-
-              {/* Heat Map Grid */}
-              <div className="space-y-2">
-                {/* Header Row */}
-                <div className="grid grid-cols-5 gap-2">
-                  <div className="text-sm font-medium text-foreground"></div>
-                  <div className="text-center text-sm font-medium text-foreground">
-                    {weekDates[0]}
-                  </div>
-                  <div className="text-center text-sm font-medium text-foreground">
-                    {weekDates[1]}
-                  </div>
-                  <div className="text-center text-sm font-medium text-foreground">
-                    {weekDates[2]}
-                  </div>
-                  <div className="text-center text-sm font-medium text-foreground">
-                    {weekDates[3]}
-                  </div>
-                </div>
-
-                {/* Data Rows */}
-                {(() => {
-                  // Calculate global min/max across all sources and weeks
-                  const allValues = trafficSourceData.flatMap((item) => [
-                    item.week1,
-                    item.week2,
-                    item.week3,
-                    item.week4,
-                  ]);
-                  const globalMax = Math.max(...allValues);
-                  const globalMin = Math.min(...allValues);
-                  const globalRange = globalMax - globalMin;
-
-                  const getIntensity = (value: number) => {
-                    // Simple linear scale: higher value = darker color (1-6)
-                    const normalized = (value - globalMin) / globalRange;
-                    return Math.ceil(normalized * 5) + 1;
-                  };
-
-                  return trafficSourceData.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="grid grid-cols-5 gap-2 items-center"
-                      >
-                        <div className="text-sm font-medium text-foreground truncate pr-2">
-                          {item.source}
-                        </div>
-                        <div
-                          className={`h-8 rounded flex items-center justify-center text-xs font-medium text-white bg-blue-${
-                            getIntensity(item.week1) * 100
-                          } hover:scale-105 transition-transform cursor-pointer`}
-                          title={`${item.source} - ${
-                            weekDates[0]
-                          }: ${item.week1.toLocaleString()} visits`}
-                        >
-                          {item.week1.toLocaleString()}
-                        </div>
-                        <div
-                          className={`h-8 rounded flex items-center justify-center text-xs font-medium text-white bg-blue-${
-                            getIntensity(item.week2) * 100
-                          } hover:scale-105 transition-transform cursor-pointer`}
-                          title={`${item.source} - ${
-                            weekDates[1]
-                          }: ${item.week2.toLocaleString()} visits`}
-                        >
-                          {item.week2.toLocaleString()}
-                        </div>
-                        <div
-                          className={`h-8 rounded flex items-center justify-center text-xs font-medium text-white bg-blue-${
-                            getIntensity(item.week3) * 100
-                          } hover:scale-105 transition-transform cursor-pointer`}
-                          title={`${item.source} - ${
-                            weekDates[2]
-                          }: ${item.week3.toLocaleString()} visits`}
-                        >
-                          {item.week3.toLocaleString()}
-                        </div>
-                        <div
-                          className={`h-8 rounded flex items-center justify-center text-xs font-medium text-white bg-blue-${
-                            getIntensity(item.week4) * 100
-                          } hover:scale-105 transition-transform cursor-pointer`}
-                          title={`${item.source} - ${
-                            weekDates[3]
-                          }: ${item.week4.toLocaleString()} visits`}
-                        >
-                          {item.week4.toLocaleString()}
-                        </div>
-                      </div>
-                    );
-                  });
-                })()}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-card border-border">
-          <CardHeader>
-            <div className="flex items-center gap-1">
-              <CardTitle className="flex items-center gap-2 text-foreground">
-                <Target className="w-5 h-5 text-primary" />
-                CTA Clicks Over Time
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Weekly trends of call-to-action clicks across different user
-                  actions
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <CardDescription className="text-muted-foreground">
-              Weekly CTA click trends over the past 3 months
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={ctaClicksOverTimeData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                  <XAxis
-                    dataKey="date"
-                    stroke="#64748b"
-                    tickFormatter={(value) => {
-                      const date = new Date(value);
-                      return date.toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                      });
-                    }}
-                  />
-                  <YAxis
-                    stroke="#64748b"
-                    domain={[0, 250]}
-                    tickFormatter={(value) => `${value}`}
-                  />
-                  <ChartTooltip
-                    formatter={(value: number) => [
-                      `${value} clicks`,
-                      "CTA Clicks",
-                    ]}
-                    labelFormatter={(value) => {
-                      const date = new Date(value);
-                      return date.toLocaleDateString("en-US", {
-                        month: "long",
-                        day: "numeric",
-                        year: "numeric",
-                      });
-                    }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="Get Directions"
-                    stroke="#3b82f6"
-                    strokeWidth={3}
-                    connectNulls={true}
-                    activeDot={{ r: 6 }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="Call"
-                    stroke="#ef4444"
-                    strokeWidth={3}
-                    connectNulls={true}
-                    activeDot={{ r: 6 }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="Order Online"
-                    stroke="#22c55e"
-                    strokeWidth={3}
-                    connectNulls={true}
-                    activeDot={{ r: 6 }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="Book an Appointment"
-                    stroke="#f59e0b"
-                    strokeWidth={3}
-                    connectNulls={true}
-                    activeDot={{ r: 6 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-
-            {/* Legend */}
-            <div className="mt-4 flex items-center justify-center gap-6">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                <span className="text-sm text-muted-foreground">
-                  Get Directions
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <span className="text-sm text-muted-foreground">Call</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="text-sm text-muted-foreground">
-                  Order Online
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <span className="text-sm text-muted-foreground">
-                  Book an Appointment
-                </span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Page Views Leaderboard */}
-      <Card className="bg-card border-border">
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1">
-              <CardTitle className="flex items-center gap-2 text-foreground">
-                <Eye className="w-5 h-5 text-primary" />
-                Page Views Leaderboard
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Top performing pages ranked by page views
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <label
+                htmlFor="site-filter"
+                className="text-sm font-medium text-foreground"
+              >
+                Filter by Site:
+              </label>
+              <Select value={selectedSite} onValueChange={setSelectedSite}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select a site" />
+                </SelectTrigger>
+                <SelectContent>
+                  {sites.map((site) => (
+                    <SelectItem key={site.id} value={site.id}>
+                      {site.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">
-                {pageViewsLeaderboardData
-                  .reduce((sum, item) => sum + item.pageViews, 0)
-                  .toLocaleString()}{" "}
-                total views
-              </span>
-              <button className="p-1 hover:bg-muted rounded">
-                <span className="text-muted-foreground">↓</span>
-              </button>
+              <Badge
+                variant="secondary"
+                className="bg-secondary/10 text-secondary"
+              >
+                <CheckCircle className="w-3 h-3 mr-1" />
+                All systems operational
+              </Badge>
+              <Star className="w-5 h-5 text-muted-foreground" />
             </div>
           </div>
-          <CardDescription className="text-muted-foreground">
-            Table shows the last 30 days of data
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
-                    Rank
-                  </th>
-                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
-                    Name
-                  </th>
-                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
-                    Address
-                  </th>
-                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
-                    Categories
-                  </th>
-                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
-                    City
-                  </th>
-                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
-                    Entity ID
-                  </th>
-                  <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
-                    Postal Code
-                  </th>
-                  <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
-                    Page Views
-                    <span className="ml-1 text-muted-foreground">▼</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {pageViewsLeaderboardData.map((item) => (
-                  <tr
-                    key={item.entityId}
-                    className="border-b border-border/50 hover:bg-muted/50"
-                  >
-                    <td className="py-2 px-2 text-sm text-foreground font-medium">
-                      {item.rank}
-                    </td>
-                    <td className="py-2 px-2 text-sm text-foreground font-medium">
-                      {item.name}
-                    </td>
-                    <td className="py-2 px-2 text-sm text-foreground">
-                      {item.address}
-                    </td>
-                    <td className="py-2 px-2 text-sm text-foreground">
-                      {item.categories}
-                    </td>
-                    <td className="py-2 px-2 text-sm text-foreground">
-                      {item.city}
-                    </td>
-                    <td className="py-2 px-2 text-sm text-foreground">
-                      {item.entityId}
-                    </td>
-                    <td className="py-2 px-2 text-sm text-foreground">
-                      {item.postalCode}
-                    </td>
-                    <td className="py-2 px-2 text-sm text-foreground text-right font-medium">
-                      {item.pageViews.toLocaleString()}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        </div>
+
+        {/* Site Filter Badge */}
+        {selectedSite !== "all" && (
+          <div className="flex items-center gap-2 mb-2">
+            <Badge variant="outline" className="text-xs">
+              Filtered by:{" "}
+              {sites.find((site) => site.id === selectedSite)?.name}
+            </Badge>
+          </div>
+        )}
+
+        {/* Section 1: Agentic Interactions */}
+        <div id="agentic" className="space-y-6 scroll-mt-20">
+          <div className="flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-foreground">
+              Agentic Interactions
+            </h2>
+            <Badge variant="outline" className="text-xs">
+              AI-Powered Search
+            </Badge>
           </div>
 
-          {/* Report Builder Button */}
-          <div className="mt-6 flex justify-center">
-            <Button
-              onClick={() => {
-                // This would navigate to the report builder in a real implementation
-                console.log(
-                  "Navigating to report builder for full page views list"
-                );
-                alert(
-                  "This would take you to the Report Builder to see the complete list of pages by page views"
-                );
-              }}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
-            >
-              <ArrowUpRight className="w-4 h-4 mr-2" />
-              View Full Report in Report Builder
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Search Terms Section */}
-      <div className="space-y-6">
-        <div className="flex items-center gap-2">
-          <h2 className="text-2xl font-bold text-foreground">
-            Search Terms Performance
-          </h2>
-          <Badge variant="outline" className="text-xs">
-            Top Performing Keywords
-          </Badge>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Branded Terms */}
-          <Card className="bg-card border-border">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <CardTitle className="flex items-center gap-2 text-foreground">
-                    <Search className="w-5 h-5 text-primary" />
-                    Pages Top Branded Terms
-                  </CardTitle>
-                  <div className="relative group">
-                    <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                      Search terms that include your brand name
-                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button className="p-1 hover:bg-muted rounded">
-                    <span className="text-muted-foreground">⋯</span>
-                  </button>
-                  <button className="p-1 hover:bg-muted rounded">
-                    <span className="text-muted-foreground">↓</span>
-                  </button>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-border">
-                      <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
-                        Search Term
-                      </th>
-                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
-                        Impressions
-                        <span className="ml-1 text-muted-foreground">↓</span>
-                      </th>
-                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
-                        Clicks
-                      </th>
-                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
-                        CTR
-                      </th>
-                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
-                        Position
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {brandedTermsData.map((term, index) => (
-                      <tr key={index} className="border-b border-border/50">
-                        <td className="py-2 px-2 text-sm text-foreground">
-                          {term.searchTerm}
-                        </td>
-                        <td className="py-2 px-2 text-sm text-foreground text-right">
-                          {term.impressions.toLocaleString()}
-                        </td>
-                        <td className="py-2 px-2 text-sm text-foreground text-right">
-                          {term.clicks}
-                        </td>
-                        <td className="py-2 px-2 text-sm text-foreground text-right">
-                          {term.ctr.toFixed(2)}%
-                        </td>
-                        <td className="py-2 px-2 text-sm text-foreground text-right">
-                          {term.position}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Unbranded Terms */}
-          <Card className="bg-card border-border">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <CardTitle className="flex items-center gap-2 text-foreground">
-                    <Search className="w-5 h-5 text-primary" />
-                    Pages Top Unbranded Terms
-                  </CardTitle>
-                  <div className="relative group">
-                    <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                      Generic search terms that don&apos;t include your brand
-                      name
-                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button className="p-1 hover:bg-muted rounded">
-                    <span className="text-muted-foreground">⋯</span>
-                  </button>
-                  <button className="p-1 hover:bg-muted rounded">
-                    <span className="text-muted-foreground">↓</span>
-                  </button>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-border">
-                      <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
-                        Search Term
-                      </th>
-                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
-                        Impressions
-                        <span className="ml-1 text-muted-foreground">↓</span>
-                      </th>
-                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
-                        Clicks
-                      </th>
-                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
-                        CTR
-                      </th>
-                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
-                        Position
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {unbrandedTermsData.map((term, index) => (
-                      <tr key={index} className="border-b border-border/50">
-                        <td className="py-2 px-2 text-sm text-foreground">
-                          {term.searchTerm}
-                        </td>
-                        <td className="py-2 px-2 text-sm text-foreground text-right">
-                          {term.impressions.toLocaleString()}
-                        </td>
-                        <td className="py-2 px-2 text-sm text-foreground text-right">
-                          {term.clicks}
-                        </td>
-                        <td className="py-2 px-2 text-sm text-foreground text-right">
-                          {term.ctr.toFixed(2)}%
-                        </td>
-                        <td className="py-2 px-2 text-sm text-foreground text-right">
-                          {term.position}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      {/* Page Health Section */}
-      <div className="space-y-6">
-        <div className="flex items-center gap-2">
-          <h2 className="text-2xl font-bold text-foreground">Page Health</h2>
-          <Badge variant="outline" className="text-xs">
-            Overall Score: 89/100
-          </Badge>
-        </div>
-
-        {/* Page Speed Metrics */}
-        <Card className="bg-card border-border">
-          <CardHeader>
-            <div className="flex items-center gap-1">
-              <CardTitle className="flex items-center gap-2 text-foreground">
-                <Clock className="w-5 h-5 text-primary" />
-                Page Speed Metrics
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Lighthouse performance metrics and Core Web Vitals
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                </div>
-              </div>
-            </div>
-            <CardDescription className="text-muted-foreground">
-              Lighthouse scores and Core Web Vitals performance
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">
-                  {pageSpeedData.performance}
-                </div>
-                <div className="text-sm text-muted-foreground">Performance</div>
-                <Progress value={pageSpeedData.performance} className="mt-2" />
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">
-                  {pageSpeedData.accessibility}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Accessibility
-                </div>
-                <Progress
-                  value={pageSpeedData.accessibility}
-                  className="mt-2"
-                />
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">
-                  {pageSpeedData.bestPractices}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Best Practices
-                </div>
-                <Progress
-                  value={pageSpeedData.bestPractices}
-                  className="mt-2"
-                />
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-foreground">
-                  {pageSpeedData.seo}
-                </div>
-                <div className="text-sm text-muted-foreground">SEO</div>
-                <Progress value={pageSpeedData.seo} className="mt-2" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="text-center p-3 bg-muted rounded-lg">
-                <div className="text-lg font-semibold text-foreground">
-                  {pageSpeedData.firstContentfulPaint}s
-                </div>
-                <div className="text-xs text-muted-foreground">FCP</div>
-                <Badge
-                  variant={
-                    pageSpeedData.firstContentfulPaint < 1.8
-                      ? "default"
-                      : "destructive"
-                  }
-                  className="text-xs mt-1"
-                >
-                  {pageSpeedData.firstContentfulPaint < 1.8
-                    ? "Good"
-                    : "Needs Improvement"}
-                </Badge>
-              </div>
-              <div className="text-center p-3 bg-muted rounded-lg">
-                <div className="text-lg font-semibold text-foreground">
-                  {pageSpeedData.largestContentfulPaint}s
-                </div>
-                <div className="text-xs text-muted-foreground">LCP</div>
-                <Badge
-                  variant={
-                    pageSpeedData.largestContentfulPaint < 2.5
-                      ? "default"
-                      : "destructive"
-                  }
-                  className="text-xs mt-1"
-                >
-                  {pageSpeedData.largestContentfulPaint < 2.5
-                    ? "Good"
-                    : "Needs Improvement"}
-                </Badge>
-              </div>
-              <div className="text-center p-3 bg-muted rounded-lg">
-                <div className="text-lg font-semibold text-foreground">
-                  {pageSpeedData.cumulativeLayoutShift}
-                </div>
-                <div className="text-xs text-muted-foreground">CLS</div>
-                <Badge
-                  variant={
-                    pageSpeedData.cumulativeLayoutShift < 0.1
-                      ? "default"
-                      : "destructive"
-                  }
-                  className="text-xs mt-1"
-                >
-                  {pageSpeedData.cumulativeLayoutShift < 0.1
-                    ? "Good"
-                    : "Needs Improvement"}
-                </Badge>
-              </div>
-              <div className="text-center p-3 bg-muted rounded-lg">
-                <div className="text-lg font-semibold text-foreground">
-                  {pageSpeedData.firstInputDelay}s
-                </div>
-                <div className="text-xs text-muted-foreground">FID</div>
-                <Badge
-                  variant={
-                    pageSpeedData.firstInputDelay < 0.1
-                      ? "default"
-                      : "destructive"
-                  }
-                  className="text-xs mt-1"
-                >
-                  {pageSpeedData.firstInputDelay < 0.1
-                    ? "Good"
-                    : "Needs Improvement"}
-                </Badge>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* WCAG Accessibility and Schema Info */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Agentic Interactions Line Graph */}
           <Card className="bg-card border-border">
             <CardHeader>
               <div className="flex items-center gap-1">
                 <CardTitle className="flex items-center gap-2 text-foreground">
-                  <Users className="w-5 h-5 text-primary" />
-                  WCAG Accessibility
+                  <Bot className="w-5 h-5 text-primary" />
+                  Agentic Interactions Over Time
                 </CardTitle>
                 <div className="relative group">
                   <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
                   <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                    Web Content Accessibility Guidelines compliance
+                    Breakdown of search interactions across AI Assistant, AI
+                    Crawler, and AI Search
                     <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                   </div>
                 </div>
               </div>
               <CardDescription className="text-muted-foreground">
-                Overall Score: {wcagData.overallScore}/100
+                Daily agentic interaction trends over the past 3 months
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-foreground">
-                    {wcagData.overallScore}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Accessibility Score
-                  </div>
-                  <Progress value={wcagData.overallScore} className="mt-2" />
-                </div>
+              <ChartContainer
+                config={{
+                  "AI Assistant": {
+                    label: "AI Assistant",
+                    color: "hsl(var(--chart-1))",
+                  },
+                  "AI Crawler": {
+                    label: "AI Crawler",
+                    color: "hsl(var(--chart-2))",
+                  },
+                  "AI Search": {
+                    label: "AI Search",
+                    color: "hsl(var(--chart-3))",
+                  },
+                }}
+                className="h-[300px]"
+              >
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={agenticInteractionsData}>
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="hsl(var(--border))"
+                    />
+                    <XAxis
+                      dataKey="date"
+                      stroke="hsl(var(--muted-foreground))"
+                    />
+                    <YAxis stroke="hsl(var(--muted-foreground))" />
+                    <ChartTooltip />
+                    <Line
+                      type="monotone"
+                      dataKey="AI Assistant"
+                      stroke="hsl(var(--chart-1))"
+                      strokeWidth={3}
+                      connectNulls={true}
+                      activeDot={{ r: 6 }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="AI Crawler"
+                      stroke="hsl(var(--chart-2))"
+                      strokeWidth={3}
+                      connectNulls={true}
+                      activeDot={{ r: 6 }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="AI Search"
+                      stroke="hsl(var(--chart-3))"
+                      strokeWidth={3}
+                      connectNulls={true}
+                      activeDot={{ r: 6 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </ChartContainer>
 
-                <div className="space-y-3">
-                  <h4 className="font-medium text-foreground">Issues Found:</h4>
-                  {wcagData.issues.map((issue, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-3 p-3 bg-muted rounded-lg"
-                    >
-                      <div
-                        className={`w-3 h-3 rounded-full ${
-                          issue.severity === "high"
-                            ? "bg-destructive"
-                            : issue.severity === "medium"
-                            ? "bg-chart-4"
-                            : "bg-secondary"
-                        }`}
-                      ></div>
-                      <div className="flex-1">
-                        <div className="text-sm font-medium text-foreground">
-                          {issue.description}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {issue.count} instances
-                        </div>
-                      </div>
-                      <Badge variant="outline" className="text-xs capitalize">
-                        {issue.severity}
-                      </Badge>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-card border-border">
-            <CardHeader>
-              <div className="flex items-center gap-1">
-                <CardTitle className="flex items-center gap-2 text-foreground">
-                  <Search className="w-5 h-5 text-primary" />
-                  Schema Information
-                </CardTitle>
-                <div className="relative group">
-                  <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                    Structured data markup validation and implementation
-                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                  </div>
-                </div>
-              </div>
-              <CardDescription className="text-muted-foreground">
-                {schemaData.implementedTypes}/{schemaData.totalTypes} schema
-                types implemented
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
+              {/* Legend */}
+              <div className="mt-4 flex items-center justify-center gap-6">
                 <div className="flex items-center gap-2">
-                  <Badge
-                    variant={
-                      schemaData.validationStatus === "valid"
-                        ? "default"
-                        : "destructive"
-                    }
-                  >
-                    {schemaData.validationStatus === "valid"
-                      ? "Valid"
-                      : "Errors Found"}
-                  </Badge>
+                  <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
                   <span className="text-sm text-muted-foreground">
-                    Schema validation status
+                    AI Assistant
                   </span>
                 </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <span className="text-sm text-muted-foreground">
+                    AI Crawler
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                  <span className="text-sm text-muted-foreground">
+                    AI Search
+                  </span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-                <div className="space-y-2">
-                  <h4 className="font-medium text-foreground">Schema Types:</h4>
-                  {schemaData.types.map((schema, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-2 bg-muted rounded"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div
-                          className={`w-2 h-2 rounded-full ${
-                            schema.status === "valid"
-                              ? "bg-secondary"
-                              : schema.status === "warning"
-                              ? "bg-chart-4"
-                              : "bg-destructive"
-                          }`}
-                        ></div>
-                        <span className="text-sm font-medium text-foreground">
-                          {schema.type}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Badge
-                          variant={schema.implemented ? "default" : "secondary"}
-                          className="text-xs"
-                        >
-                          {schema.implemented ? "Implemented" : "Missing"}
-                        </Badge>
-                        <Badge
-                          variant={
-                            schema.status === "valid"
-                              ? "default"
-                              : schema.status === "warning"
-                              ? "outline"
-                              : "destructive"
-                          }
-                          className="text-xs"
-                        >
-                          {schema.status}
-                        </Badge>
+          {/* Agentic Interactions Leaderboard */}
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  <CardTitle className="flex items-center gap-2 text-foreground">
+                    <Bot className="w-5 h-5 text-primary" />
+                    Agentic Interactions Leaderboard
+                  </CardTitle>
+                  <div className="relative group">
+                    <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                      Top performing pages ranked by total agentic interactions
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <CardDescription className="text-muted-foreground">
+                Table shows the last 30 days of data
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                        Page Name
+                      </th>
+                      <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                        Entity ID
+                      </th>
+                      <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                        Page Group
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        AI Assistant
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        AI Crawler
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        AI Search
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        Total Agentic Interactions
+                        <span className="ml-1 text-muted-foreground">▼</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {agenticLeaderboardData.map((item) => (
+                      <tr
+                        key={item.entityId}
+                        className="border-b border-border/50 hover:bg-muted/50"
+                      >
+                        <td className="py-2 px-2 text-sm text-foreground font-medium">
+                          {item.pageName}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground">
+                          {item.entityId}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground">
+                          {item.pageGroup}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right">
+                          {item.aiAssistant.toLocaleString()}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right">
+                          {item.aiCrawler.toLocaleString()}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right">
+                          {item.aiSearch.toLocaleString()}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right font-medium">
+                          {item.totalAgenticInteractions.toLocaleString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Section 2: Traditional Search Metrics */}
+        <div id="traditional" className="space-y-6 scroll-mt-20">
+          <div className="flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-foreground">
+              Traditional Search Metrics
+            </h2>
+            <Badge variant="outline" className="text-xs">
+              Google Search Performance
+            </Badge>
+          </div>
+
+          {/* Search Impressions and CTR Line Graphs */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card className="bg-card border-border">
+              <CardHeader>
+                <div className="flex items-center gap-1">
+                  <CardTitle className="text-foreground">
+                    Search Impressions Over Time
+                  </CardTitle>
+                  <div className="relative group">
+                    <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                      Shows how your search impressions have changed over the
+                      past 6 months
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                    </div>
+                  </div>
+                </div>
+                <CardDescription className="text-muted-foreground">
+                  Monthly search impressions over the last 6 months
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ChartContainer
+                  config={{
+                    impressions: {
+                      label: "Impressions",
+                      color: "hsl(var(--chart-1))",
+                    },
+                  }}
+                  className="h-[300px]"
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={performanceData}>
+                      <CartesianGrid
+                        strokeDasharray="3 3"
+                        stroke="hsl(var(--border))"
+                      />
+                      <XAxis
+                        dataKey="month"
+                        stroke="hsl(var(--muted-foreground))"
+                      />
+                      <YAxis stroke="hsl(var(--muted-foreground))" />
+                      <ChartTooltip />
+                      <Line
+                        type="monotone"
+                        dataKey="impressions"
+                        stroke="hsl(var(--chart-1))"
+                        strokeWidth={3}
+                        connectNulls={true}
+                        activeDot={{ r: 6 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card border-border">
+              <CardHeader>
+                <div className="flex items-center gap-1">
+                  <CardTitle className="text-foreground">
+                    Click-Through Rate Over Time
+                  </CardTitle>
+                  <div className="relative group">
+                    <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                      Shows how your click-through rate has changed over the
+                      past 6 months
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                    </div>
+                  </div>
+                </div>
+                <CardDescription className="text-muted-foreground">
+                  Monthly CTR trends over the last 6 months
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ChartContainer
+                  config={{
+                    ctr: {
+                      label: "CTR",
+                      color: "hsl(var(--chart-2))",
+                    },
+                  }}
+                  className="h-[300px]"
+                >
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={performanceData}>
+                      <CartesianGrid
+                        strokeDasharray="3 3"
+                        stroke="hsl(var(--border))"
+                      />
+                      <XAxis
+                        dataKey="month"
+                        stroke="hsl(var(--muted-foreground))"
+                      />
+                      <YAxis
+                        stroke="hsl(var(--muted-foreground))"
+                        tickFormatter={(value) => `${value}%`}
+                      />
+                      <ChartTooltip
+                        formatter={(value: number) => [`${value}%`, "CTR"]}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="ctr"
+                        stroke="hsl(var(--chart-2))"
+                        strokeWidth={3}
+                        connectNulls={true}
+                        activeDot={{ r: 6 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </ChartContainer>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Search Impressions Leaderboard */}
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  <CardTitle className="flex items-center gap-2 text-foreground">
+                    <Search className="w-5 h-5 text-primary" />
+                    Search Impressions Leaderboard
+                  </CardTitle>
+                  <div className="relative group">
+                    <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                      Top performing pages ranked by search impressions
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <CardDescription className="text-muted-foreground">
+                Table shows the last 30 days of data
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                        Page Name
+                      </th>
+                      <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                        Entity ID
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        Search Impressions
+                        <span className="ml-1 text-muted-foreground">▼</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {searchImpressionsLeaderboardData.map((item) => (
+                      <tr
+                        key={item.entityId}
+                        className="border-b border-border/50 hover:bg-muted/50"
+                      >
+                        <td className="py-2 px-2 text-sm text-foreground font-medium">
+                          {item.pageName}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground">
+                          {item.entityId}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right font-medium">
+                          {item.impressions.toLocaleString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* CTR Leaderboard */}
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  <CardTitle className="flex items-center gap-2 text-foreground">
+                    <MousePointer className="w-5 h-5 text-primary" />
+                    Click-Through Rate Leaderboard
+                  </CardTitle>
+                  <div className="relative group">
+                    <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                      Top performing pages ranked by click-through rate
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <CardDescription className="text-muted-foreground">
+                Table shows the last 30 days of data
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                        Page Name
+                      </th>
+                      <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                        Entity ID
+                      </th>
+                      <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                        Click-Through Rate
+                        <span className="ml-1 text-muted-foreground">▼</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ctrLeaderboardData.map((item) => (
+                      <tr
+                        key={item.entityId}
+                        className="border-b border-border/50 hover:bg-muted/50"
+                      >
+                        <td className="py-2 px-2 text-sm text-foreground font-medium">
+                          {item.pageName}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground">
+                          {item.entityId}
+                        </td>
+                        <td className="py-2 px-2 text-sm text-foreground text-right font-medium">
+                          {item.ctr.toFixed(1)}%
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Branded and Unbranded Terms */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Branded Terms */}
+            <Card className="bg-card border-border">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1">
+                    <CardTitle className="flex items-center gap-2 text-foreground">
+                      <Search className="w-5 h-5 text-primary" />
+                      Pages Top Branded Terms
+                    </CardTitle>
+                    <div className="relative group">
+                      <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                        Search terms that include your brand name
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                       </div>
                     </div>
-                  ))}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button className="p-1 hover:bg-muted rounded">
+                      <span className="text-muted-foreground">⋯</span>
+                    </button>
+                    <button className="p-1 hover:bg-muted rounded">
+                      <span className="text-muted-foreground">↓</span>
+                    </button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                          Search Term
+                        </th>
+                        <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                          Impressions
+                          <span className="ml-1 text-muted-foreground">↓</span>
+                        </th>
+                        <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                          Clicks
+                        </th>
+                        <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                          CTR
+                        </th>
+                        <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                          Position
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {brandedTermsData.map((term, index) => (
+                        <tr key={index} className="border-b border-border/50">
+                          <td className="py-2 px-2 text-sm text-foreground">
+                            {term.searchTerm}
+                          </td>
+                          <td className="py-2 px-2 text-sm text-foreground text-right">
+                            {term.impressions.toLocaleString()}
+                          </td>
+                          <td className="py-2 px-2 text-sm text-foreground text-right">
+                            {term.clicks}
+                          </td>
+                          <td className="py-2 px-2 text-sm text-foreground text-right">
+                            {term.ctr.toFixed(2)}%
+                          </td>
+                          <td className="py-2 px-2 text-sm text-foreground text-right">
+                            {term.position}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Unbranded Terms */}
+            <Card className="bg-card border-border">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1">
+                    <CardTitle className="flex items-center gap-2 text-foreground">
+                      <Search className="w-5 h-5 text-primary" />
+                      Pages Top Unbranded Terms
+                    </CardTitle>
+                    <div className="relative group">
+                      <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                        Generic search terms that don&apos;t include your brand
+                        name
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button className="p-1 hover:bg-muted rounded">
+                      <span className="text-muted-foreground">⋯</span>
+                    </button>
+                    <button className="p-1 hover:bg-muted rounded">
+                      <span className="text-muted-foreground">↓</span>
+                    </button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                          Search Term
+                        </th>
+                        <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                          Impressions
+                          <span className="ml-1 text-muted-foreground">↓</span>
+                        </th>
+                        <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                          Clicks
+                        </th>
+                        <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                          CTR
+                        </th>
+                        <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                          Position
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {unbrandedTermsData.map((term, index) => (
+                        <tr key={index} className="border-b border-border/50">
+                          <td className="py-2 px-2 text-sm text-foreground">
+                            {term.searchTerm}
+                          </td>
+                          <td className="py-2 px-2 text-sm text-foreground text-right">
+                            {term.impressions.toLocaleString()}
+                          </td>
+                          <td className="py-2 px-2 text-sm text-foreground text-right">
+                            {term.clicks}
+                          </td>
+                          <td className="py-2 px-2 text-sm text-foreground text-right">
+                            {term.ctr.toFixed(2)}%
+                          </td>
+                          <td className="py-2 px-2 text-sm text-foreground text-right">
+                            {term.position}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Section 3: User Interactions */}
+        <div id="interactions" className="space-y-6 scroll-mt-20">
+          <div className="flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-foreground">
+              User Interactions
+            </h2>
+            <Badge variant="outline" className="text-xs">
+              Engagement Metrics
+            </Badge>
+          </div>
+
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <div className="flex items-center gap-1">
+                <CardTitle className="flex items-center gap-2 text-foreground">
+                  <Target className="w-5 h-5 text-primary" />
+                  CTA Clicks Over Time
+                </CardTitle>
+                <div className="relative group">
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                    Weekly trends of call-to-action clicks across different user
+                    actions
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                  </div>
+                </div>
+              </div>
+              <CardDescription className="text-muted-foreground">
+                Weekly CTA click trends over the past 3 months
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[300px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={ctaClicksOverTimeData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                    <XAxis
+                      dataKey="date"
+                      stroke="#64748b"
+                      tickFormatter={(value) => {
+                        const date = new Date(value);
+                        return date.toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                        });
+                      }}
+                    />
+                    <YAxis
+                      stroke="#64748b"
+                      domain={[0, 250]}
+                      tickFormatter={(value) => `${value}`}
+                    />
+                    <ChartTooltip
+                      formatter={(value: number) => [
+                        `${value} clicks`,
+                        "CTA Clicks",
+                      ]}
+                      labelFormatter={(value) => {
+                        const date = new Date(value);
+                        return date.toLocaleDateString("en-US", {
+                          month: "long",
+                          day: "numeric",
+                          year: "numeric",
+                        });
+                      }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="Get Directions"
+                      stroke="#3b82f6"
+                      strokeWidth={3}
+                      connectNulls={true}
+                      activeDot={{ r: 6 }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="Call"
+                      stroke="#ef4444"
+                      strokeWidth={3}
+                      connectNulls={true}
+                      activeDot={{ r: 6 }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="Order Online"
+                      stroke="#22c55e"
+                      strokeWidth={3}
+                      connectNulls={true}
+                      activeDot={{ r: 6 }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="Book an Appointment"
+                      stroke="#f59e0b"
+                      strokeWidth={3}
+                      connectNulls={true}
+                      activeDot={{ r: 6 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Legend */}
+              <div className="mt-4 flex items-center justify-center gap-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                  <span className="text-sm text-muted-foreground">
+                    Get Directions
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                  <span className="text-sm text-muted-foreground">Call</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <span className="text-sm text-muted-foreground">
+                    Order Online
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                  <span className="text-sm text-muted-foreground">
+                    Book an Appointment
+                  </span>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Analytics Tracking */}
-        <Card className="bg-card border-border">
-          <CardHeader>
-            <div className="flex items-center gap-1">
-              <CardTitle className="flex items-center gap-2 text-foreground">
-                <Target className="w-5 h-5 text-primary" />
-                Analytics Tracking
-              </CardTitle>
-              <div className="relative group">
-                <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-                  Analytics tools and tracking tags implementation status
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+        {/* Section 4: Page Views */}
+        <div id="pageviews" className="space-y-6 scroll-mt-20">
+          <div className="flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-foreground">Page Views</h2>
+            <Badge variant="outline" className="text-xs">
+              Traffic Metrics
+            </Badge>
+          </div>
+
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <div className="flex items-center gap-1">
+                <CardTitle className="text-foreground">
+                  Page Views Over Time
+                </CardTitle>
+                <div className="relative group">
+                  <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                    Shows how your page views have changed over the past 3
+                    months
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <CardDescription className="text-muted-foreground">
-              Analytics {analyticsData.enabled ? "enabled" : "disabled"} -{" "}
-              {
-                analyticsData.tags.filter((tag) => tag.status === "active")
-                  .length
-              }{" "}
-              active tags
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Badge
-                  variant={analyticsData.enabled ? "default" : "destructive"}
-                >
-                  {analyticsData.enabled
-                    ? "Analytics Enabled"
-                    : "Analytics Disabled"}
-                </Badge>
-                <span className="text-sm text-muted-foreground">
-                  Tracking status
-                </span>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {analyticsData.tags.map((tag, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between p-3 bg-muted rounded-lg"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`w-3 h-3 rounded-full ${
-                          tag.status === "active"
-                            ? "bg-secondary"
-                            : "bg-muted-foreground"
-                        }`}
-                      ></div>
-                      <div>
-                        <div className="font-medium text-foreground">
-                          {tag.name}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {tag.id}
-                        </div>
-                      </div>
-                    </div>
-                    <Badge
-                      variant={
-                        tag.status === "active" ? "default" : "secondary"
-                      }
-                      className="text-xs"
-                    >
-                      {tag.status}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+              <CardDescription className="text-muted-foreground">
+                Daily page view trends over the past 3 months
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ChartContainer
+                config={{
+                  pageViews: {
+                    label: "Page Views",
+                    color: "hsl(var(--chart-3))",
+                  },
+                }}
+                className="h-[300px]"
+              >
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={pageViewsOverTimeData}>
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="hsl(var(--border))"
+                    />
+                    <XAxis
+                      dataKey="date"
+                      stroke="hsl(var(--muted-foreground))"
+                    />
+                    <YAxis stroke="hsl(var(--muted-foreground))" />
+                    <ChartTooltip />
+                    <Line
+                      type="monotone"
+                      dataKey="pageViews"
+                      stroke="#22c55e"
+                      strokeWidth={3}
+                      connectNulls={true}
+                      activeDot={{ r: 6 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
