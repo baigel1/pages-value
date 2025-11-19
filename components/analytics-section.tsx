@@ -1,14 +1,11 @@
 import { AnalyticsHeader } from "./analytics-header";
 import { KeyStats } from "./key-stats";
-import { AppPromotionBanner } from "./app-promotion-banner";
 
 export function AnalyticsSection() {
   return (
-    <div className="px-8 py-8 space-y-6">
+    <div className="px-8 py-6 space-y-4">
       <AnalyticsHeader />
       <KeyStats />
-      <AppPromotionBanner />
     </div>
   );
 }
-

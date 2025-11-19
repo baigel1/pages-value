@@ -13,7 +13,7 @@ export function AnalyticsHeader() {
         </Badge>
       </div>
       <a
-        href="#"
+        href="/analytics"
         className="text-blue-600 hover:underline text-sm font-medium"
       >
         View Your Site Analytics
