@@ -111,7 +111,7 @@ const agenticLeaderboardData = [
   {
     pageName: "Yext Roasters - Downtown Raleigh",
     entityId: 49285,
-    pageGroup: "Location Pages",
+    pageGroup: "Location",
     aiAssistant: 1250,
     aiCrawler: 890,
     aiSearch: 720,
@@ -119,7 +119,7 @@ const agenticLeaderboardData = [
   {
     pageName: "Yext Roasters - Columbia Center",
     entityId: 46175,
-    pageGroup: "Location Pages",
+    pageGroup: "Location",
     aiAssistant: 980,
     aiCrawler: 720,
     aiSearch: 580,
@@ -127,7 +127,7 @@ const agenticLeaderboardData = [
   {
     pageName: "Yext Roasters - Greenville Plaza",
     entityId: 66063,
-    pageGroup: "Location Pages",
+    pageGroup: "Location",
     aiAssistant: 850,
     aiCrawler: 620,
     aiSearch: 490,
@@ -135,7 +135,7 @@ const agenticLeaderboardData = [
   {
     pageName: "Yext Roasters - Charlotte Uptown",
     entityId: 52341,
-    pageGroup: "Location Pages",
+    pageGroup: "Location",
     aiAssistant: 720,
     aiCrawler: 540,
     aiSearch: 420,
@@ -143,7 +143,7 @@ const agenticLeaderboardData = [
   {
     pageName: "Yext Roasters - Wilmington Waterfront",
     entityId: 58792,
-    pageGroup: "Location Pages",
+    pageGroup: "Location",
     aiAssistant: 680,
     aiCrawler: 510,
     aiSearch: 390,
@@ -151,7 +151,7 @@ const agenticLeaderboardData = [
   {
     pageName: "Yext Roasters - Clemson Campus",
     entityId: 63478,
-    pageGroup: "Location Pages",
+    pageGroup: "Location",
     aiAssistant: 620,
     aiCrawler: 480,
     aiSearch: 360,
@@ -159,7 +159,7 @@ const agenticLeaderboardData = [
   {
     pageName: "Yext Roasters - Anderson Mall",
     entityId: 71234,
-    pageGroup: "Location Pages",
+    pageGroup: "Location",
     aiAssistant: 580,
     aiCrawler: 450,
     aiSearch: 340,
@@ -167,7 +167,7 @@ const agenticLeaderboardData = [
   {
     pageName: "Yext Roasters - Franklin Square",
     entityId: 44567,
-    pageGroup: "Location Pages",
+    pageGroup: "Location",
     aiAssistant: 540,
     aiCrawler: 420,
     aiSearch: 320,
@@ -175,10 +175,42 @@ const agenticLeaderboardData = [
   {
     pageName: "Yext Roasters - Greenwood Center",
     entityId: 82345,
-    pageGroup: "Location Pages",
+    pageGroup: "Location",
     aiAssistant: 510,
     aiCrawler: 390,
     aiSearch: 300,
+  },
+  {
+    pageName: "Find a Location Near You",
+    entityId: 10001,
+    pageGroup: "Locator",
+    aiAssistant: 2100,
+    aiCrawler: 1500,
+    aiSearch: 1200,
+  },
+  {
+    pageName: "Store Locator",
+    entityId: 10002,
+    pageGroup: "Locator",
+    aiAssistant: 1800,
+    aiCrawler: 1300,
+    aiSearch: 1000,
+  },
+  {
+    pageName: "Our Coffee Story",
+    entityId: 20001,
+    pageGroup: "Latte",
+    aiAssistant: 950,
+    aiCrawler: 680,
+    aiSearch: 520,
+  },
+  {
+    pageName: "Coffee Menu",
+    entityId: 20002,
+    pageGroup: "Latte",
+    aiAssistant: 820,
+    aiCrawler: 590,
+    aiSearch: 450,
   },
 ].map((item) => ({
   ...item,
@@ -190,47 +222,80 @@ const searchImpressionsLeaderboardData = [
   {
     pageName: "Yext Roasters - Downtown Raleigh",
     entityId: 49285,
+    pageGroup: "Location",
     impressions: 185000,
   },
   {
     pageName: "Yext Roasters - Columbia Center",
     entityId: 46175,
+    pageGroup: "Location",
     impressions: 142000,
   },
   {
     pageName: "Yext Roasters - Greenville Plaza",
     entityId: 66063,
+    pageGroup: "Location",
     impressions: 118000,
   },
   {
     pageName: "Yext Roasters - Charlotte Uptown",
     entityId: 52341,
+    pageGroup: "Location",
     impressions: 98000,
   },
   {
     pageName: "Yext Roasters - Wilmington Waterfront",
     entityId: 58792,
+    pageGroup: "Location",
     impressions: 87000,
   },
   {
     pageName: "Yext Roasters - Clemson Campus",
     entityId: 63478,
+    pageGroup: "Location",
     impressions: 76000,
   },
   {
     pageName: "Yext Roasters - Anderson Mall",
     entityId: 71234,
+    pageGroup: "Location",
     impressions: 68000,
   },
   {
     pageName: "Yext Roasters - Franklin Square",
     entityId: 44567,
+    pageGroup: "Location",
     impressions: 62000,
   },
   {
     pageName: "Yext Roasters - Greenwood Center",
     entityId: 82345,
+    pageGroup: "Location",
     impressions: 58000,
+  },
+  {
+    pageName: "Find a Location Near You",
+    entityId: 10001,
+    pageGroup: "Locator",
+    impressions: 245000,
+  },
+  {
+    pageName: "Store Locator",
+    entityId: 10002,
+    pageGroup: "Locator",
+    impressions: 198000,
+  },
+  {
+    pageName: "Our Coffee Story",
+    entityId: 20001,
+    pageGroup: "Latte",
+    impressions: 125000,
+  },
+  {
+    pageName: "Coffee Menu",
+    entityId: 20002,
+    pageGroup: "Latte",
+    impressions: 108000,
   },
 ];
 
@@ -239,47 +304,80 @@ const ctrLeaderboardData = [
   {
     pageName: "Yext Roasters - Downtown Raleigh",
     entityId: 49285,
+    pageGroup: "Location",
     ctr: 12.5,
   },
   {
     pageName: "Yext Roasters - Columbia Center",
     entityId: 46175,
+    pageGroup: "Location",
     ctr: 11.8,
   },
   {
     pageName: "Yext Roasters - Greenville Plaza",
     entityId: 66063,
+    pageGroup: "Location",
     ctr: 11.2,
   },
   {
     pageName: "Yext Roasters - Charlotte Uptown",
     entityId: 52341,
+    pageGroup: "Location",
     ctr: 10.9,
   },
   {
     pageName: "Yext Roasters - Wilmington Waterfront",
     entityId: 58792,
+    pageGroup: "Location",
     ctr: 10.5,
   },
   {
     pageName: "Yext Roasters - Clemson Campus",
     entityId: 63478,
+    pageGroup: "Location",
     ctr: 10.2,
   },
   {
     pageName: "Yext Roasters - Anderson Mall",
     entityId: 71234,
+    pageGroup: "Location",
     ctr: 9.8,
   },
   {
     pageName: "Yext Roasters - Franklin Square",
     entityId: 44567,
+    pageGroup: "Location",
     ctr: 9.5,
   },
   {
     pageName: "Yext Roasters - Greenwood Center",
     entityId: 82345,
+    pageGroup: "Location",
     ctr: 9.2,
+  },
+  {
+    pageName: "Find a Location Near You",
+    entityId: 10001,
+    pageGroup: "Locator",
+    ctr: 13.8,
+  },
+  {
+    pageName: "Store Locator",
+    entityId: 10002,
+    pageGroup: "Locator",
+    ctr: 12.9,
+  },
+  {
+    pageName: "Our Coffee Story",
+    entityId: 20001,
+    pageGroup: "Latte",
+    ctr: 11.5,
+  },
+  {
+    pageName: "Coffee Menu",
+    entityId: 20002,
+    pageGroup: "Latte",
+    ctr: 10.8,
   },
 ];
 
@@ -511,14 +609,16 @@ const unbrandedTermsData = [
   },
 ];
 
-// Site filter data
-const sites = [
-  { id: "all", name: "All Sites" },
-  { id: "main", name: "Main Site" },
+// Page Group filter data
+const pageGroups = [
+  { id: "all", name: "All" },
+  { id: "Locator", name: "Locator" },
+  { id: "Location", name: "Location" },
+  { id: "Latte", name: "Latte" },
 ];
 
 export function PagesOverviewDashboard() {
-  const [selectedSite, setSelectedSite] = React.useState("all");
+  const [selectedPageGroup, setSelectedPageGroup] = React.useState("all");
   const [activeSection, setActiveSection] = React.useState("agentic");
 
   const navItems = [
@@ -530,6 +630,117 @@ export function PagesOverviewDashboard() {
 
   const handleNavigate = (id: string) => {
     setActiveSection(id);
+  };
+
+  // Helper function to aggregate data by page group
+  const aggregateByPageGroup = <T extends { pageGroup: string }>(
+    data: T[],
+    getValue: (item: T) => number
+  ) => {
+    const grouped = data.reduce((acc, item) => {
+      const group = item.pageGroup;
+      if (!acc[group]) {
+        acc[group] = { pageGroup: group, value: 0 };
+      }
+      acc[group].value += getValue(item);
+      return acc;
+    }, {} as Record<string, { pageGroup: string; value: number }>);
+
+    return Object.values(grouped)
+      .sort((a, b) => b.value - a.value)
+      .map((item) => ({
+        pageName: item.pageGroup,
+        pageGroup: item.pageGroup,
+        value: item.value,
+      }));
+  };
+
+  // Filter and transform leaderboard data based on selected page group
+  const getAgenticLeaderboardData = () => {
+    if (selectedPageGroup === "all") {
+      // Aggregate by page group
+      return aggregateByPageGroup(
+        agenticLeaderboardData,
+        (item) => item.totalAgenticInteractions
+      ).map((item) => ({
+        pageName: item.pageName,
+        pageGroup: item.pageGroup,
+        entityId: undefined as number | undefined,
+        aiAssistant: agenticLeaderboardData
+          .filter((p) => p.pageGroup === item.pageGroup)
+          .reduce((sum, p) => sum + p.aiAssistant, 0),
+        aiCrawler: agenticLeaderboardData
+          .filter((p) => p.pageGroup === item.pageGroup)
+          .reduce((sum, p) => sum + p.aiCrawler, 0),
+        aiSearch: agenticLeaderboardData
+          .filter((p) => p.pageGroup === item.pageGroup)
+          .reduce((sum, p) => sum + p.aiSearch, 0),
+        totalAgenticInteractions: item.value,
+      }));
+    } else {
+      // Filter by selected page group
+      return agenticLeaderboardData
+        .filter((item) => item.pageGroup === selectedPageGroup)
+        .sort(
+          (a, b) => b.totalAgenticInteractions - a.totalAgenticInteractions
+        );
+    }
+  };
+
+  const getSearchImpressionsLeaderboardData = () => {
+    if (selectedPageGroup === "all") {
+      // Aggregate by page group
+      return aggregateByPageGroup(
+        searchImpressionsLeaderboardData,
+        (item) => item.impressions
+      ).map((item) => ({
+        pageName: item.pageName,
+        pageGroup: item.pageGroup,
+        entityId: undefined as number | undefined,
+        impressions: item.value,
+      }));
+    } else {
+      // Filter by selected page group
+      return searchImpressionsLeaderboardData
+        .filter((item) => item.pageGroup === selectedPageGroup)
+        .sort((a, b) => b.impressions - a.impressions);
+    }
+  };
+
+  const getCtrLeaderboardData = () => {
+    if (selectedPageGroup === "all") {
+      // Aggregate by page group - calculate weighted average CTR
+      const grouped = searchImpressionsLeaderboardData.reduce((acc, item) => {
+        const group = item.pageGroup;
+        if (!acc[group]) {
+          acc[group] = { impressions: 0, clicks: 0 };
+        }
+        acc[group].impressions += item.impressions;
+        // Estimate clicks from CTR (approximate)
+        const ctrItem = ctrLeaderboardData.find(
+          (c) => c.entityId === item.entityId
+        );
+        if (ctrItem) {
+          acc[group].clicks += (item.impressions * ctrItem.ctr) / 100;
+        }
+        return acc;
+      }, {} as Record<string, { impressions: number; clicks: number }>);
+
+      return Object.entries(grouped)
+        .map(([pageGroup, data]) => ({
+          pageName: pageGroup,
+          pageGroup: pageGroup,
+          entityId: undefined as number | undefined,
+          ctr:
+            data.impressions > 0 ? (data.clicks / data.impressions) * 100 : 0,
+        }))
+        .sort((a, b) => b.ctr - a.ctr);
+    } else {
+      // Filter by selected page group
+      return ctrLeaderboardData
+        .filter((item) => item.pageGroup === selectedPageGroup)
+        .sort((a, b) => b.ctr - a.ctr);
+    }
   };
 
   return (
@@ -548,19 +759,22 @@ export function PagesOverviewDashboard() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <label
-                htmlFor="site-filter"
+                htmlFor="page-group-filter"
                 className="text-sm font-medium text-foreground"
               >
-                Filter by Site:
+                Filter by Page Group:
               </label>
-              <Select value={selectedSite} onValueChange={setSelectedSite}>
+              <Select
+                value={selectedPageGroup}
+                onValueChange={setSelectedPageGroup}
+              >
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select a site" />
+                  <SelectValue placeholder="Select a page group" />
                 </SelectTrigger>
                 <SelectContent>
-                  {sites.map((site) => (
-                    <SelectItem key={site.id} value={site.id}>
-                      {site.name}
+                  {pageGroups.map((group) => (
+                    <SelectItem key={group.id} value={group.id}>
+                      {group.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -579,12 +793,12 @@ export function PagesOverviewDashboard() {
           </div>
         </div>
 
-        {/* Site Filter Badge */}
-        {selectedSite !== "all" && (
+        {/* Page Group Filter Badge */}
+        {selectedPageGroup !== "all" && (
           <div className="flex items-center gap-2 mt-4">
             <Badge variant="outline" className="text-xs">
               Filtered by:{" "}
-              {sites.find((site) => site.id === selectedSite)?.name}
+              {pageGroups.find((group) => group.id === selectedPageGroup)?.name}
             </Badge>
           </div>
         )}
@@ -833,16 +1047,22 @@ export function PagesOverviewDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {agenticLeaderboardData.map((item) => (
+                      {getAgenticLeaderboardData().map((item, index) => (
                         <tr
-                          key={item.entityId}
+                          key={
+                            selectedPageGroup === "all"
+                              ? item.pageGroup
+                              : item.entityId
+                          }
                           className="border-b border-border/50 hover:bg-muted/50"
                         >
                           <td className="py-2 px-2 text-sm text-foreground font-medium">
                             {item.pageName}
                           </td>
                           <td className="py-2 px-2 text-sm text-foreground">
-                            {item.entityId}
+                            {selectedPageGroup === "all" || !item.entityId
+                              ? "-"
+                              : item.entityId}
                           </td>
                           <td className="py-2 px-2 text-sm text-foreground">
                             {item.pageGroup}
@@ -1039,16 +1259,22 @@ export function PagesOverviewDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {searchImpressionsLeaderboardData.map((item) => (
+                      {getSearchImpressionsLeaderboardData().map((item) => (
                         <tr
-                          key={item.entityId}
+                          key={
+                            selectedPageGroup === "all"
+                              ? item.pageGroup
+                              : item.entityId
+                          }
                           className="border-b border-border/50 hover:bg-muted/50"
                         >
                           <td className="py-2 px-2 text-sm text-foreground font-medium">
                             {item.pageName}
                           </td>
                           <td className="py-2 px-2 text-sm text-foreground">
-                            {item.entityId}
+                            {selectedPageGroup === "all" || !item.entityId
+                              ? "-"
+                              : item.entityId}
                           </td>
                           <td className="py-2 px-2 text-sm text-foreground text-right font-medium">
                             {item.impressions.toLocaleString()}
@@ -1101,16 +1327,22 @@ export function PagesOverviewDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {ctrLeaderboardData.map((item) => (
+                      {getCtrLeaderboardData().map((item) => (
                         <tr
-                          key={item.entityId}
+                          key={
+                            selectedPageGroup === "all"
+                              ? item.pageGroup
+                              : item.entityId
+                          }
                           className="border-b border-border/50 hover:bg-muted/50"
                         >
                           <td className="py-2 px-2 text-sm text-foreground font-medium">
                             {item.pageName}
                           </td>
                           <td className="py-2 px-2 text-sm text-foreground">
-                            {item.entityId}
+                            {selectedPageGroup === "all" || !item.entityId
+                              ? "-"
+                              : item.entityId}
                           </td>
                           <td className="py-2 px-2 text-sm text-foreground text-right font-medium">
                             {item.ctr.toFixed(1)}%
