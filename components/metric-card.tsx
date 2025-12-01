@@ -1,7 +1,11 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 import { Line, LineChart } from "recharts";
 import { ArrowUp, ArrowDown } from "lucide-react";
 
@@ -12,11 +16,18 @@ interface MetricCardProps {
   percentageChange?: number;
 }
 
-export function MetricCard({ title, value, chartData, percentageChange }: MetricCardProps) {
+export function MetricCard({
+  title,
+  value,
+  chartData,
+  percentageChange,
+}: MetricCardProps) {
   // Generate default chart data if not provided
-  const defaultChartData = chartData || Array.from({ length: 7 }, () => ({
-    value: Math.random() * 100 + 50,
-  }));
+  const defaultChartData =
+    chartData ||
+    Array.from({ length: 7 }, () => ({
+      value: Math.random() * 100 + 50,
+    }));
 
   const chartConfig = {
     value: {
@@ -35,7 +46,9 @@ export function MetricCard({ title, value, chartData, percentageChange }: Metric
         <div className="flex items-center justify-between">
           <h3 className="text-sm text-gray-600 font-medium">{title}</h3>
           {percentageChange !== undefined && (
-            <div className={`flex items-center gap-1 px-2 py-1 rounded-md ${changeBgColor}`}>
+            <div
+              className={`flex items-center gap-1 px-2 py-1 rounded-md ${changeBgColor}`}
+            >
               {isPositive ? (
                 <ArrowUp className={`w-3 h-3 ${changeColor}`} />
               ) : (
@@ -54,9 +67,7 @@ export function MetricCard({ title, value, chartData, percentageChange }: Metric
               data={defaultChartData}
               margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
             >
-              <ChartTooltip
-                content={<ChartTooltipContent hideLabel />}
-              />
+              <ChartTooltip content={<ChartTooltipContent hideLabel />} />
               <Line
                 type="monotone"
                 dataKey="value"
@@ -72,4 +83,3 @@ export function MetricCard({ title, value, chartData, percentageChange }: Metric
     </Card>
   );
 }
-
