@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import {
   Select,
@@ -24,22 +23,17 @@ import { MetricCard } from "@/components/metric-card";
 import {
   Line,
   LineChart,
-  Area,
-  AreaChart,
   XAxis,
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
 import {
-  TrendingUp,
   MousePointer,
   Search,
   CheckCircle,
-  ArrowUpRight,
   Star,
   Target,
-  Eye,
   Info,
   Bot,
 } from "lucide-react";
@@ -1477,7 +1471,7 @@ export function PagesOverviewDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {getAgenticLeaderboardData().map((item, index) => (
+                      {getAgenticLeaderboardData().map((item) => (
                         <tr
                           key={
                             selectedPageGroup === "all"
@@ -2169,7 +2163,7 @@ export function PagesOverviewDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {getCtaEventsLeaderboardData().map((item, index) => (
+                      {getCtaEventsLeaderboardData().map((item) => (
                         <tr
                           key={item.eventName}
                           className="border-b border-border/50 hover:bg-muted/50"

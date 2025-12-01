@@ -14,7 +14,7 @@ interface MetricCardProps {
 
 export function MetricCard({ title, value, chartData, percentageChange }: MetricCardProps) {
   // Generate default chart data if not provided
-  const defaultChartData = chartData || Array.from({ length: 7 }, (_, i) => ({
+  const defaultChartData = chartData || Array.from({ length: 7 }, () => ({
     value: Math.random() * 100 + 50,
   }));
 
