@@ -917,15 +917,15 @@ export function PagesOverviewDashboard() {
                   config={{
                     "AI Assistant": {
                       label: "AI Assistant",
-                      color: "hsl(var(--chart-1))",
+                      color: "#0284c7",
                     },
                     "AI Crawler": {
                       label: "AI Crawler",
-                      color: "hsl(var(--chart-2))",
+                      color: "#2563eb",
                     },
                     "AI Search": {
                       label: "AI Search",
-                      color: "hsl(var(--chart-3))",
+                      color: "#16a34a",
                     },
                   }}
                   className="h-[300px]"
@@ -945,26 +945,29 @@ export function PagesOverviewDashboard() {
                       <Line
                         type="monotone"
                         dataKey="AI Assistant"
-                        stroke="hsl(var(--chart-1))"
-                        strokeWidth={3}
+                        stroke="#0284c7"
+                        strokeWidth={4}
                         connectNulls={true}
-                        activeDot={{ r: 6 }}
+                        activeDot={{ r: 7 }}
+                        dot={{ r: 3 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="AI Crawler"
-                        stroke="hsl(var(--chart-2))"
-                        strokeWidth={3}
+                        stroke="#2563eb"
+                        strokeWidth={4}
                         connectNulls={true}
-                        activeDot={{ r: 6 }}
+                        activeDot={{ r: 7 }}
+                        dot={{ r: 3 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="AI Search"
-                        stroke="hsl(var(--chart-3))"
-                        strokeWidth={3}
+                        stroke="#16a34a"
+                        strokeWidth={4}
                         connectNulls={true}
-                        activeDot={{ r: 6 }}
+                        activeDot={{ r: 7 }}
+                        dot={{ r: 3 }}
                       />
                     </LineChart>
                   </ResponsiveContainer>
@@ -973,19 +976,28 @@ export function PagesOverviewDashboard() {
                 {/* Legend */}
                 <div className="mt-4 flex items-center justify-center gap-6">
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: "#0284c7" }}
+                    ></div>
                     <span className="text-sm text-muted-foreground">
                       AI Assistant
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: "#2563eb" }}
+                    ></div>
                     <span className="text-sm text-muted-foreground">
                       AI Crawler
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: "#16a34a" }}
+                    ></div>
                     <span className="text-sm text-muted-foreground">
                       AI Search
                     </span>
@@ -1127,7 +1139,7 @@ export function PagesOverviewDashboard() {
                     config={{
                       impressions: {
                         label: "Impressions",
-                        color: "hsl(var(--chart-1))",
+                        color: "#0284c7",
                       },
                     }}
                     className="h-[300px]"
@@ -1147,10 +1159,11 @@ export function PagesOverviewDashboard() {
                         <Line
                           type="monotone"
                           dataKey="impressions"
-                          stroke="hsl(var(--chart-1))"
-                          strokeWidth={3}
+                          stroke="#0284c7"
+                          strokeWidth={4}
                           connectNulls={true}
-                          activeDot={{ r: 6 }}
+                          activeDot={{ r: 7 }}
+                          dot={{ r: 3 }}
                         />
                       </LineChart>
                     </ResponsiveContainer>
@@ -1182,7 +1195,7 @@ export function PagesOverviewDashboard() {
                     config={{
                       ctr: {
                         label: "CTR",
-                        color: "hsl(var(--chart-2))",
+                        color: "#2563eb",
                       },
                     }}
                     className="h-[300px]"
@@ -1207,10 +1220,11 @@ export function PagesOverviewDashboard() {
                         <Line
                           type="monotone"
                           dataKey="ctr"
-                          stroke="hsl(var(--chart-2))"
-                          strokeWidth={3}
+                          stroke="#2563eb"
+                          strokeWidth={4}
                           connectNulls={true}
-                          activeDot={{ r: 6 }}
+                          activeDot={{ r: 7 }}
+                          dot={{ r: 3 }}
                         />
                       </LineChart>
                     </ResponsiveContainer>
@@ -1587,34 +1601,38 @@ export function PagesOverviewDashboard() {
                       <Line
                         type="monotone"
                         dataKey="Get Directions"
-                        stroke="#3b82f6"
-                        strokeWidth={3}
+                        stroke="#2563eb"
+                        strokeWidth={4}
                         connectNulls={true}
-                        activeDot={{ r: 6 }}
+                        activeDot={{ r: 7 }}
+                        dot={{ r: 3 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="Call"
-                        stroke="#ef4444"
-                        strokeWidth={3}
+                        stroke="#dc2626"
+                        strokeWidth={4}
                         connectNulls={true}
-                        activeDot={{ r: 6 }}
+                        activeDot={{ r: 7 }}
+                        dot={{ r: 3 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="Order Online"
-                        stroke="#22c55e"
-                        strokeWidth={3}
+                        stroke="#16a34a"
+                        strokeWidth={4}
                         connectNulls={true}
-                        activeDot={{ r: 6 }}
+                        activeDot={{ r: 7 }}
+                        dot={{ r: 3 }}
                       />
                       <Line
                         type="monotone"
                         dataKey="Book an Appointment"
-                        stroke="#f59e0b"
-                        strokeWidth={3}
+                        stroke="#d97706"
+                        strokeWidth={4}
                         connectNulls={true}
-                        activeDot={{ r: 6 }}
+                        activeDot={{ r: 7 }}
+                        dot={{ r: 3 }}
                       />
                     </LineChart>
                   </ResponsiveContainer>
@@ -1623,23 +1641,35 @@ export function PagesOverviewDashboard() {
                 {/* Legend */}
                 <div className="mt-4 flex items-center justify-center gap-6">
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: "#2563eb" }}
+                    ></div>
                     <span className="text-sm text-muted-foreground">
                       Get Directions
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: "#dc2626" }}
+                    ></div>
                     <span className="text-sm text-muted-foreground">Call</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: "#16a34a" }}
+                    ></div>
                     <span className="text-sm text-muted-foreground">
                       Order Online
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: "#d97706" }}
+                    ></div>
                     <span className="text-sm text-muted-foreground">
                       Book an Appointment
                     </span>
@@ -1684,7 +1714,7 @@ export function PagesOverviewDashboard() {
                   config={{
                     pageViews: {
                       label: "Page Views",
-                      color: "hsl(var(--chart-3))",
+                      color: "#16a34a",
                     },
                   }}
                   className="h-[300px]"
@@ -1704,10 +1734,11 @@ export function PagesOverviewDashboard() {
                       <Line
                         type="monotone"
                         dataKey="pageViews"
-                        stroke="#22c55e"
-                        strokeWidth={3}
+                        stroke="#16a34a"
+                        strokeWidth={4}
                         connectNulls={true}
-                        activeDot={{ r: 6 }}
+                        activeDot={{ r: 7 }}
+                        dot={{ r: 3 }}
                       />
                     </LineChart>
                   </ResponsiveContainer>
