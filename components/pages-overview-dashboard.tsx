@@ -562,91 +562,259 @@ const ctrLeaderboardData = [
   ...locationPagesCTR.map(createLattePageFromLocationForCTR),
 ];
 
-// CTA Clicks Over Time Data
-const ctaClicksOverTimeData = [
+// Helper function to generate CTA clicks data with peaks and valleys for different page groups
+function generateCtaClicksData(pageGroup: string) {
+  const dates = [
+    "2025-01-01",
+    "2025-01-08",
+    "2025-01-15",
+    "2025-01-22",
+    "2025-01-29",
+    "2025-02-05",
+    "2025-02-12",
+    "2025-02-19",
+    "2025-02-26",
+    "2025-03-05",
+    "2025-03-12",
+    "2025-03-19",
+  ];
+
+  // Base values for each category by page group
+  let baseValues: Record<string, number> = {};
+  let trendMultiplier = 1.0;
+  let variationAmplitude = 1.0;
+
+  switch (pageGroup) {
+    case "Location":
+      baseValues = {
+        URL: 185,
+        Email: 95,
+        Phone: 142,
+        "Click to Website": 128,
+        "Driving Directions": 120,
+        Other: 45,
+      };
+      trendMultiplier = 1.12;
+      variationAmplitude = 0.28;
+      break;
+    case "Locator":
+      baseValues = {
+        URL: 280,
+        Email: 145,
+        Phone: 215,
+        "Click to Website": 195,
+        "Driving Directions": 185,
+        Other: 68,
+      };
+      trendMultiplier = 1.15;
+      variationAmplitude = 0.25;
+      break;
+    case "Latte":
+      baseValues = {
+        URL: 158,
+        Email: 81,
+        Phone: 121,
+        "Click to Website": 109,
+        "Driving Directions": 102,
+        Other: 38,
+      };
+      trendMultiplier = 1.12;
+      variationAmplitude = 0.3;
+      break;
+    default:
+      // All: aggregate - higher volume
+      baseValues = {
+        URL: 240,
+        Email: 125,
+        Phone: 185,
+        "Click to Website": 168,
+        "Driving Directions": 158,
+        Other: 58,
+      };
+      trendMultiplier = 1.13;
+      variationAmplitude = 0.26;
+      break;
+  }
+
+  return dates.map((date, index) => {
+    const progress = index / (dates.length - 1);
+    const trend = progress * (trendMultiplier - 1);
+
+    // Create peaks and valleys with multiple sine waves for realistic variation
+    // Weekly pattern
+    const weeklyCycle = Math.sin((index * Math.PI) / 1.5) * 0.15;
+
+    // Longer cycle for monthly/seasonal patterns
+    const monthlyCycle = Math.sin((index * 2 * Math.PI) / 6) * 0.2;
+
+    // Random-like variation based on index and pageGroup (deterministic)
+    const seed = (index * 17 + pageGroup.charCodeAt(0)) % 100;
+    const pseudoRandom = (Math.sin(seed * 0.15) + 1) / 2; // 0-1 range
+    const randomVariation = (pseudoRandom - 0.5) * 0.25;
+
+    // Combine cycles for realistic peaks and valleys
+    const variation =
+      (weeklyCycle + monthlyCycle + randomVariation) * variationAmplitude;
+
+    // Generate values for each category with different phase offsets for variety
+    const generateCategoryValue = (
+      baseValue: number,
+      categoryIndex: number
+    ) => {
+      // Add category-specific phase offset for different patterns
+      const categoryPhase = categoryIndex * 0.3;
+      const categoryCycle =
+        Math.sin((index + categoryPhase) * 0.8) * 0.1 +
+        Math.cos((index * 2 + categoryPhase) * 0.5) * 0.08;
+      const categoryVariation = variation + categoryCycle;
+      const value = baseValue * (1 + trend + categoryVariation);
+      return Math.max(10, Math.round(value)); // Ensure minimum value
+    };
+
+    return {
+      date,
+      URL: generateCategoryValue(baseValues.URL, 0),
+      Email: generateCategoryValue(baseValues.Email, 1),
+      Phone: generateCategoryValue(baseValues.Phone, 2),
+      "Click to Website": generateCategoryValue(
+        baseValues["Click to Website"],
+        3
+      ),
+      "Driving Directions": generateCategoryValue(
+        baseValues["Driving Directions"],
+        4
+      ),
+      Other: generateCategoryValue(baseValues.Other, 5),
+    };
+  });
+}
+
+// CTA Clicks Over Time Data - All (default)
+const ctaClicksOverTimeDataAll = generateCtaClicksData("all");
+
+// CTA Events Leaderboard Data
+const ctaEventsData = [
+  // Location pages events
   {
-    date: "2025-01-01",
-    "Get Directions": 120,
-    Call: 85,
-    "Order Online": 65,
-    "Book an Appointment": 45,
+    eventName: "promosection259_cta",
+    pageGroup: "Location",
+    type: "URL",
+    clicks: 1245,
+    clickRate: 2.8,
   },
   {
-    date: "2025-01-08",
-    "Get Directions": 135,
-    Call: 92,
-    "Order Online": 72,
-    "Book an Appointment": 52,
+    eventName: "herosection572_primary",
+    pageGroup: "Location",
+    type: "Driving Directions",
+    clicks: 1180,
+    clickRate: 2.6,
   },
   {
-    date: "2025-01-15",
-    "Get Directions": 142,
-    Call: 88,
-    "Order Online": 78,
-    "Book an Appointment": 48,
+    eventName: "ctasection184_button",
+    pageGroup: "Location",
+    type: "Phone",
+    clicks: 985,
+    clickRate: 2.2,
   },
   {
-    date: "2025-01-22",
-    "Get Directions": 158,
-    Call: 95,
-    "Order Online": 82,
-    "Book an Appointment": 55,
+    eventName: "bannersection341_link",
+    pageGroup: "Location",
+    type: "Click to Website",
+    clicks: 875,
+    clickRate: 1.9,
   },
   {
-    date: "2025-01-29",
-    "Get Directions": 165,
-    Call: 102,
-    "Order Online": 88,
-    "Book an Appointment": 62,
+    eventName: "footersection672_email",
+    pageGroup: "Location",
+    type: "Email",
+    clicks: 625,
+    clickRate: 1.4,
   },
   {
-    date: "2025-02-05",
-    "Get Directions": 178,
-    Call: 108,
-    "Order Online": 95,
-    "Book an Appointment": 68,
+    eventName: "promosection259_secondary",
+    pageGroup: "Location",
+    type: "Other",
+    clicks: 425,
+    clickRate: 0.9,
+  },
+  // Locator pages events
+  {
+    eventName: "locatorsection892_search",
+    pageGroup: "Locator",
+    type: "Click to Website",
+    clicks: 2150,
+    clickRate: 3.2,
   },
   {
-    date: "2025-02-12",
-    "Get Directions": 185,
-    Call: 115,
-    "Order Online": 102,
-    "Book an Appointment": 72,
+    eventName: "locatorsection892_map",
+    pageGroup: "Locator",
+    type: "Driving Directions",
+    clicks: 1980,
+    clickRate: 2.9,
   },
   {
-    date: "2025-02-19",
-    "Get Directions": 192,
-    Call: 122,
-    "Order Online": 108,
-    "Book an Appointment": 78,
+    eventName: "locatorsection892_phone",
+    pageGroup: "Locator",
+    type: "Phone",
+    clicks: 1650,
+    clickRate: 2.4,
   },
   {
-    date: "2025-02-26",
-    "Get Directions": 205,
-    Call: 128,
-    "Order Online": 115,
-    "Book an Appointment": 82,
+    eventName: "locatorsection892_url",
+    pageGroup: "Locator",
+    type: "URL",
+    clicks: 1420,
+    clickRate: 2.1,
   },
   {
-    date: "2025-03-05",
-    "Get Directions": 218,
-    Call: 135,
-    "Order Online": 122,
-    "Book an Appointment": 88,
+    eventName: "locatorsection892_email",
+    pageGroup: "Locator",
+    type: "Email",
+    clicks: 980,
+    clickRate: 1.5,
+  },
+  // Latte pages events
+  {
+    eventName: "lattepromo387_cta",
+    pageGroup: "Latte",
+    type: "URL",
+    clicks: 1055,
+    clickRate: 2.4,
   },
   {
-    date: "2025-03-12",
-    "Get Directions": 225,
-    Call: 142,
-    "Order Online": 128,
-    "Book an Appointment": 92,
+    eventName: "lattehero621_primary",
+    pageGroup: "Latte",
+    type: "Driving Directions",
+    clicks: 995,
+    clickRate: 2.2,
   },
   {
-    date: "2025-03-19",
-    "Get Directions": 238,
-    Call: 148,
-    "Order Online": 135,
-    "Book an Appointment": 98,
+    eventName: "lattecta234_button",
+    pageGroup: "Latte",
+    type: "Phone",
+    clicks: 835,
+    clickRate: 1.9,
+  },
+  {
+    eventName: "lattebanner456_link",
+    pageGroup: "Latte",
+    type: "Click to Website",
+    clicks: 745,
+    clickRate: 1.7,
+  },
+  {
+    eventName: "lattefooter789_email",
+    pageGroup: "Latte",
+    type: "Email",
+    clicks: 530,
+    clickRate: 1.2,
+  },
+  {
+    eventName: "lattepromo387_secondary",
+    pageGroup: "Latte",
+    type: "Other",
+    clicks: 360,
+    clickRate: 0.8,
   },
 ];
 
@@ -852,6 +1020,14 @@ export function PagesOverviewDashboard() {
     return generatePageViewsData(selectedPageGroup);
   };
 
+  // Get CTA clicks chart data based on selected page group
+  const getCtaClicksChartData = () => {
+    if (selectedPageGroup === "all") {
+      return ctaClicksOverTimeDataAll;
+    }
+    return generateCtaClicksData(selectedPageGroup);
+  };
+
   // Filter and transform leaderboard data based on selected page group
   const getAgenticLeaderboardData = () => {
     if (selectedPageGroup === "all") {
@@ -937,6 +1113,44 @@ export function PagesOverviewDashboard() {
       return ctrLeaderboardData
         .filter((item) => item.pageGroup === selectedPageGroup)
         .sort((a, b) => b.ctr - a.ctr);
+    }
+  };
+
+  const getCtaEventsLeaderboardData = () => {
+    if (selectedPageGroup === "all") {
+      // Aggregate by event name across all page groups
+      const grouped = ctaEventsData.reduce((acc, item) => {
+        const eventName = item.eventName;
+        if (!acc[eventName]) {
+          acc[eventName] = {
+            eventName: eventName,
+            type: item.type,
+            clicks: 0,
+            clickRate: 0,
+            totalViews: 0,
+          };
+        }
+        acc[eventName].clicks += item.clicks;
+        // Estimate page views from click rate (clicks / clickRate * 100)
+        const estimatedViews = (item.clicks / item.clickRate) * 100;
+        acc[eventName].totalViews += estimatedViews;
+        return acc;
+      }, {} as Record<string, { eventName: string; type: string; clicks: number; clickRate: number; totalViews: number }>);
+
+      return Object.values(grouped)
+        .map((item) => ({
+          eventName: item.eventName,
+          type: item.type,
+          clicks: item.clicks,
+          clickRate:
+            item.totalViews > 0 ? (item.clicks / item.totalViews) * 100 : 0,
+        }))
+        .sort((a, b) => b.clicks - a.clicks);
+    } else {
+      // Filter by selected page group
+      return ctaEventsData
+        .filter((item) => item.pageGroup === selectedPageGroup)
+        .sort((a, b) => b.clicks - a.clicks);
     }
   };
 
@@ -1770,7 +1984,7 @@ export function PagesOverviewDashboard() {
               <CardContent>
                 <div className="h-[300px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={ctaClicksOverTimeData}>
+                    <LineChart data={getCtaClicksChartData()}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                       <XAxis
                         dataKey="date"
@@ -1785,7 +1999,7 @@ export function PagesOverviewDashboard() {
                       />
                       <YAxis
                         stroke="#64748b"
-                        domain={[0, 250]}
+                        domain={[0, 450]}
                         tickFormatter={(value) => `${value}`}
                       />
                       <ChartTooltip
@@ -1804,7 +2018,7 @@ export function PagesOverviewDashboard() {
                       />
                       <Line
                         type="monotone"
-                        dataKey="Get Directions"
+                        dataKey="URL"
                         stroke="#2563eb"
                         strokeWidth={4}
                         connectNulls={true}
@@ -1813,7 +2027,7 @@ export function PagesOverviewDashboard() {
                       />
                       <Line
                         type="monotone"
-                        dataKey="Call"
+                        dataKey="Email"
                         stroke="#dc2626"
                         strokeWidth={4}
                         connectNulls={true}
@@ -1822,7 +2036,7 @@ export function PagesOverviewDashboard() {
                       />
                       <Line
                         type="monotone"
-                        dataKey="Order Online"
+                        dataKey="Phone"
                         stroke="#16a34a"
                         strokeWidth={4}
                         connectNulls={true}
@@ -1831,8 +2045,26 @@ export function PagesOverviewDashboard() {
                       />
                       <Line
                         type="monotone"
-                        dataKey="Book an Appointment"
+                        dataKey="Click to Website"
                         stroke="#d97706"
+                        strokeWidth={4}
+                        connectNulls={true}
+                        activeDot={{ r: 7 }}
+                        dot={{ r: 3 }}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="Driving Directions"
+                        stroke="#9333ea"
+                        strokeWidth={4}
+                        connectNulls={true}
+                        activeDot={{ r: 7 }}
+                        dot={{ r: 3 }}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="Other"
+                        stroke="#64748b"
                         strokeWidth={4}
                         connectNulls={true}
                         activeDot={{ r: 7 }}
@@ -1843,31 +2075,27 @@ export function PagesOverviewDashboard() {
                 </div>
 
                 {/* Legend */}
-                <div className="mt-4 flex items-center justify-center gap-6">
+                <div className="mt-4 flex items-center justify-center gap-4 flex-wrap">
                   <div className="flex items-center gap-2">
                     <div
                       className="w-3 h-3 rounded-full"
                       style={{ backgroundColor: "#2563eb" }}
                     ></div>
-                    <span className="text-sm text-muted-foreground">
-                      Get Directions
-                    </span>
+                    <span className="text-sm text-muted-foreground">URL</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div
                       className="w-3 h-3 rounded-full"
                       style={{ backgroundColor: "#dc2626" }}
                     ></div>
-                    <span className="text-sm text-muted-foreground">Call</span>
+                    <span className="text-sm text-muted-foreground">Email</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div
                       className="w-3 h-3 rounded-full"
                       style={{ backgroundColor: "#16a34a" }}
                     ></div>
-                    <span className="text-sm text-muted-foreground">
-                      Order Online
-                    </span>
+                    <span className="text-sm text-muted-foreground">Phone</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div
@@ -1875,9 +2103,93 @@ export function PagesOverviewDashboard() {
                       style={{ backgroundColor: "#d97706" }}
                     ></div>
                     <span className="text-sm text-muted-foreground">
-                      Book an Appointment
+                      Click to Website
                     </span>
                   </div>
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: "#9333ea" }}
+                    ></div>
+                    <span className="text-sm text-muted-foreground">
+                      Driving Directions
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: "#64748b" }}
+                    ></div>
+                    <span className="text-sm text-muted-foreground">Other</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* CTA Events Leaderboard */}
+            <Card className="bg-card border-border">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1">
+                    <CardTitle className="flex items-center gap-2 text-foreground">
+                      <Target className="w-5 h-5 text-primary" />
+                      CTA Events Leaderboard
+                    </CardTitle>
+                    <div className="relative group">
+                      <Info className="h-4 w-4 text-muted-foreground cursor-help hover:text-foreground" />
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+                        Top performing CTA events ranked by number of clicks
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <CardDescription className="text-muted-foreground">
+                  Table shows the last 30 days of data
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto max-w-full">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b border-border">
+                        <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                          Event Name
+                        </th>
+                        <th className="text-left py-2 px-2 text-sm font-medium text-foreground">
+                          Type
+                        </th>
+                        <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                          Number of Clicks
+                          <span className="ml-1 text-muted-foreground">▼</span>
+                        </th>
+                        <th className="text-right py-2 px-2 text-sm font-medium text-foreground">
+                          Click Rate
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {getCtaEventsLeaderboardData().map((item, index) => (
+                        <tr
+                          key={item.eventName}
+                          className="border-b border-border/50 hover:bg-muted/50"
+                        >
+                          <td className="py-2 px-2 text-sm text-foreground font-medium">
+                            {item.eventName}
+                          </td>
+                          <td className="py-2 px-2 text-sm text-foreground">
+                            {item.type}
+                          </td>
+                          <td className="py-2 px-2 text-sm text-foreground text-right font-medium">
+                            {item.clicks.toLocaleString()}
+                          </td>
+                          <td className="py-2 px-2 text-sm text-foreground text-right">
+                            {item.clickRate.toFixed(2)}%
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </CardContent>
             </Card>
