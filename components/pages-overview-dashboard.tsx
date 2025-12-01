@@ -75,39 +75,225 @@ const performanceData = [
   { month: "Jun", impressions: 1940000, clicks: 194000, ctr: 10.0 },
 ];
 
-const pageViewsOverTimeData = [
-  { date: "Jan 1", pageViews: 28000 },
-  { date: "Jan 8", pageViews: 32000 },
-  { date: "Jan 15", pageViews: 35000 },
-  { date: "Jan 22", pageViews: 38000 },
-  { date: "Jan 29", pageViews: 42000 },
-  { date: "Feb 5", pageViews: 45000 },
-  { date: "Feb 12", pageViews: 48000 },
-  { date: "Feb 19", pageViews: 52000 },
-  { date: "Feb 26", pageViews: 55000 },
-  { date: "Mar 5", pageViews: 58000 },
-  { date: "Mar 12", pageViews: 62000 },
-  { date: "Mar 19", pageViews: 65000 },
-];
+// Helper function to generate page views data with peaks and valleys for different page groups
+function generatePageViewsData(pageGroup: string) {
+  const dates = [
+    "Jan 1",
+    "Jan 8",
+    "Jan 15",
+    "Jan 22",
+    "Jan 29",
+    "Feb 5",
+    "Feb 12",
+    "Feb 19",
+    "Feb 26",
+    "Mar 5",
+    "Mar 12",
+    "Mar 19",
+  ];
 
-// Agentic Interactions Over Time Data
-const agenticInteractionsData = [
-  { date: "Jan 1", "AI Assistant": 450, "AI Crawler": 320, "AI Search": 280 },
-  { date: "Jan 8", "AI Assistant": 480, "AI Crawler": 340, "AI Search": 295 },
-  { date: "Jan 15", "AI Assistant": 520, "AI Crawler": 360, "AI Search": 310 },
-  { date: "Jan 22", "AI Assistant": 550, "AI Crawler": 380, "AI Search": 325 },
-  { date: "Jan 29", "AI Assistant": 580, "AI Crawler": 400, "AI Search": 340 },
-  { date: "Feb 5", "AI Assistant": 620, "AI Crawler": 420, "AI Search": 360 },
-  { date: "Feb 12", "AI Assistant": 650, "AI Crawler": 440, "AI Search": 380 },
-  { date: "Feb 19", "AI Assistant": 680, "AI Crawler": 460, "AI Search": 400 },
-  { date: "Feb 26", "AI Assistant": 720, "AI Crawler": 480, "AI Search": 420 },
-  { date: "Mar 5", "AI Assistant": 750, "AI Crawler": 500, "AI Search": 440 },
-  { date: "Mar 12", "AI Assistant": 780, "AI Crawler": 520, "AI Search": 460 },
-  { date: "Mar 19", "AI Assistant": 820, "AI Crawler": 540, "AI Search": 480 },
-];
+  // Different base values and patterns for different page groups
+  let baseValue = 28000;
+  let trendMultiplier = 1.0;
+  let variationAmplitude = 1.0;
+  let weeklyPattern = 1.0;
 
-// Agentic Interactions Leaderboard Data
-const agenticLeaderboardData = [
+  switch (pageGroup) {
+    case "Location":
+      // Location pages: moderate volume with weekly patterns
+      baseValue = 32000;
+      trendMultiplier = 1.05; // Slight overall growth
+      variationAmplitude = 0.25; // 25% variation
+      weeklyPattern = 1.15; // Weekend spikes
+      break;
+    case "Locator":
+      // Locator pages: highest volume, more consistent but still has variation
+      baseValue = 48000;
+      trendMultiplier = 1.08; // Stronger growth
+      variationAmplitude = 0.2; // 20% variation
+      weeklyPattern = 1.1; // Moderate weekly pattern
+      break;
+    case "Latte":
+      // Latte pages: aligned with Location but slightly lower
+      baseValue = 27000; // ~85% of Location
+      trendMultiplier = 1.05; // Same growth as Location
+      variationAmplitude = 0.28; // Slightly more variation
+      weeklyPattern = 1.18; // Similar weekly pattern
+      break;
+    default:
+      // All: aggregate - higher volume, moderate variation
+      baseValue = 35000;
+      trendMultiplier = 1.06; // Moderate growth
+      variationAmplitude = 0.22; // 22% variation
+      weeklyPattern = 1.12; // Moderate weekly pattern
+      break;
+  }
+
+  return dates.map((date, index) => {
+    const progress = index / (dates.length - 1);
+    const trend = progress * (trendMultiplier - 1);
+
+    // Create peaks and valleys with multiple sine waves for realistic variation
+    // Weekly pattern (every 2 data points = weekly)
+    const weeklyCycle = Math.sin((index * Math.PI) / 1) * (weeklyPattern - 1);
+
+    // Longer cycle for monthly/seasonal patterns
+    const monthlyCycle = Math.sin((index * 2 * Math.PI) / 6) * 0.4;
+
+    // Random-like variation based on index and pageGroup (deterministic)
+    const seed = (index * 13 + pageGroup.charCodeAt(0)) % 100;
+    const pseudoRandom = (Math.sin(seed * 0.1) + 1) / 2; // 0-1 range
+    const randomVariation = (pseudoRandom - 0.5) * 0.3;
+
+    // Combine cycles for realistic peaks and valleys
+    const variation =
+      (weeklyCycle + monthlyCycle + randomVariation) * variationAmplitude;
+
+    // Apply trend and variation
+    const value = baseValue * (1 + trend + variation);
+
+    return {
+      date,
+      pageViews: Math.max(10000, Math.round(value)), // Ensure minimum value
+    };
+  });
+}
+
+// Page Views Over Time Data - All (default)
+const pageViewsOverTimeDataAll = generatePageViewsData("all");
+
+// Helper function to generate agentic interactions data for different page groups
+function generateAgenticInteractionsData(
+  pageGroup: string,
+  baseMultiplier: number = 1
+) {
+  const dates = [
+    "Jan 1",
+    "Jan 8",
+    "Jan 15",
+    "Jan 22",
+    "Jan 29",
+    "Feb 5",
+    "Feb 12",
+    "Feb 19",
+    "Feb 26",
+    "Mar 5",
+    "Mar 12",
+    "Mar 19",
+  ];
+
+  // Different patterns for different page groups
+  let aiAssistantBase = 450;
+  let aiCrawlerBase = 320;
+  let aiSearchBase = 280;
+  let trendMultiplier = 1;
+  let variationPattern = 1;
+  let weeklySpike = 1;
+
+  switch (pageGroup) {
+    case "Location":
+      // Location pages: steady growth, moderate variation, some weekly spikes
+      aiAssistantBase = 380;
+      aiCrawlerBase = 280;
+      aiSearchBase = 240;
+      trendMultiplier = 1.18;
+      variationPattern = 1.2;
+      weeklySpike = 1.15;
+      break;
+    case "Locator":
+      // Locator pages: highest volume, strong growth, more consistent
+      aiAssistantBase = 650;
+      aiCrawlerBase = 480;
+      aiSearchBase = 420;
+      trendMultiplier = 1.28;
+      variationPattern = 1.5;
+      weeklySpike = 1.1;
+      break;
+    case "Latte":
+      // Latte pages: intent pages aligned with Location pages but slightly lower
+      // Similar to Location but with slight variation (85-90% of Location values)
+      aiAssistantBase = 323; // ~85% of Location's 380
+      aiCrawlerBase = 238; // ~85% of Location's 280
+      aiSearchBase = 204; // ~85% of Location's 240
+      trendMultiplier = 1.18; // Same growth as Location
+      variationPattern = 1.3; // Slightly different variation pattern
+      weeklySpike = 1.15; // Same as Location
+      break;
+    default:
+      // All: aggregate of all groups - higher volume, moderate growth
+      aiAssistantBase = 450;
+      aiCrawlerBase = 320;
+      aiSearchBase = 280;
+      trendMultiplier = 1.22;
+      variationPattern = 1.1;
+      weeklySpike = 1.12;
+      break;
+  }
+
+  return dates.map((date, index) => {
+    const progress = index / (dates.length - 1);
+    const trend = progress * (trendMultiplier - 1);
+
+    // More realistic variation with weekly patterns
+    const weeklyPattern = index % 2 === 0 ? weeklySpike : 1;
+    // Deterministic "random" variation based on index and pageGroup
+    const seed = (index * 7 + pageGroup.charCodeAt(0)) % 100;
+    const pseudoRandom = (Math.sin(seed) + 1) / 2; // Convert to 0-1 range
+    const variation =
+      Math.sin((index + variationPattern) * 0.6) * 0.12 +
+      Math.cos((index * 2.3 + variationPattern) * 0.4) * 0.08 +
+      (pseudoRandom - 0.5) * 0.05; // Small deterministic variation
+
+    // Different growth rates for each AI type
+    const aiAssistantMultiplier = 1 + trend + variation;
+    const aiCrawlerMultiplier = 1 + trend * 0.9 + variation * 0.85;
+    const aiSearchMultiplier = 1 + trend * 1.1 + variation * 0.75;
+
+    return {
+      date,
+      "AI Assistant": Math.round(
+        aiAssistantBase * baseMultiplier * aiAssistantMultiplier * weeklyPattern
+      ),
+      "AI Crawler": Math.round(
+        aiCrawlerBase * baseMultiplier * aiCrawlerMultiplier * weeklyPattern
+      ),
+      "AI Search": Math.round(
+        aiSearchBase * baseMultiplier * aiSearchMultiplier * weeklyPattern
+      ),
+    };
+  });
+}
+
+// Agentic Interactions Over Time Data - All (default)
+const agenticInteractionsDataAll = generateAgenticInteractionsData("all");
+
+// Helper function to create Latte (intent) pages based on location pages
+function createLattePageFromLocation(locationPage: {
+  pageName: string;
+  entityId: number;
+  pageGroup: string;
+  aiAssistant: number;
+  aiCrawler: number;
+  aiSearch: number;
+}) {
+  // Extract location name (e.g., "Downtown Raleigh" from "Yext Roasters - Downtown Raleigh")
+  const locationName = locationPage.pageName.replace("Yext Roasters - ", "");
+
+  // Create slightly varied values (85-95% of location values with some variation)
+  const variation = 0.85 + (locationPage.entityId % 10) * 0.01; // Deterministic variation based on entityId
+
+  return {
+    pageName: `Latte - ${locationName}`,
+    entityId: 30000 + (locationPage.entityId % 10000), // Unique entity ID for Latte page
+    pageGroup: "Latte",
+    aiAssistant: Math.round(locationPage.aiAssistant * variation),
+    aiCrawler: Math.round(locationPage.aiCrawler * variation),
+    aiSearch: Math.round(locationPage.aiSearch * variation),
+  };
+}
+
+// Location pages data
+const locationPages = [
   {
     pageName: "Yext Roasters - Downtown Raleigh",
     entityId: 49285,
@@ -180,14 +366,11 @@ const agenticLeaderboardData = [
     aiCrawler: 390,
     aiSearch: 300,
   },
-  {
-    pageName: "Find a Location Near You",
-    entityId: 10001,
-    pageGroup: "Locator",
-    aiAssistant: 2100,
-    aiCrawler: 1500,
-    aiSearch: 1200,
-  },
+];
+
+// Agentic Interactions Leaderboard Data
+const agenticLeaderboardData = [
+  ...locationPages,
   {
     pageName: "Store Locator",
     entityId: 10002,
@@ -196,29 +379,32 @@ const agenticLeaderboardData = [
     aiCrawler: 1300,
     aiSearch: 1000,
   },
-  {
-    pageName: "Our Coffee Story",
-    entityId: 20001,
-    pageGroup: "Latte",
-    aiAssistant: 950,
-    aiCrawler: 680,
-    aiSearch: 520,
-  },
-  {
-    pageName: "Coffee Menu",
-    entityId: 20002,
-    pageGroup: "Latte",
-    aiAssistant: 820,
-    aiCrawler: 590,
-    aiSearch: 450,
-  },
+  ...locationPages.map(createLattePageFromLocation),
 ].map((item) => ({
   ...item,
   totalAgenticInteractions: item.aiAssistant + item.aiCrawler + item.aiSearch,
 }));
 
-// Search Impressions Leaderboard Data
-const searchImpressionsLeaderboardData = [
+// Helper function to create Latte page for search impressions
+function createLattePageFromLocationForImpressions(locationPage: {
+  pageName: string;
+  entityId: number;
+  pageGroup: string;
+  impressions: number;
+}) {
+  const locationName = locationPage.pageName.replace("Yext Roasters - ", "");
+  const variation = 0.85 + (locationPage.entityId % 10) * 0.01;
+
+  return {
+    pageName: `Latte - ${locationName}`,
+    entityId: 30000 + (locationPage.entityId % 10000),
+    pageGroup: "Latte",
+    impressions: Math.round(locationPage.impressions * variation),
+  };
+}
+
+// Location pages for search impressions
+const locationPagesImpressions = [
   {
     pageName: "Yext Roasters - Downtown Raleigh",
     entityId: 49285,
@@ -273,34 +459,41 @@ const searchImpressionsLeaderboardData = [
     pageGroup: "Location",
     impressions: 58000,
   },
-  {
-    pageName: "Find a Location Near You",
-    entityId: 10001,
-    pageGroup: "Locator",
-    impressions: 245000,
-  },
+];
+
+// Search Impressions Leaderboard Data
+const searchImpressionsLeaderboardData = [
+  ...locationPagesImpressions,
   {
     pageName: "Store Locator",
     entityId: 10002,
     pageGroup: "Locator",
     impressions: 198000,
   },
-  {
-    pageName: "Our Coffee Story",
-    entityId: 20001,
-    pageGroup: "Latte",
-    impressions: 125000,
-  },
-  {
-    pageName: "Coffee Menu",
-    entityId: 20002,
-    pageGroup: "Latte",
-    impressions: 108000,
-  },
+  ...locationPagesImpressions.map(createLattePageFromLocationForImpressions),
 ];
 
-// CTR Leaderboard Data
-const ctrLeaderboardData = [
+// Helper function to create Latte page for CTR
+function createLattePageFromLocationForCTR(locationPage: {
+  pageName: string;
+  entityId: number;
+  pageGroup: string;
+  ctr: number;
+}) {
+  const locationName = locationPage.pageName.replace("Yext Roasters - ", "");
+  // CTR variation: slightly lower or higher (0.9-1.05 multiplier)
+  const variation = 0.9 + (locationPage.entityId % 15) / 100;
+
+  return {
+    pageName: `Latte - ${locationName}`,
+    entityId: 30000 + (locationPage.entityId % 10000),
+    pageGroup: "Latte",
+    ctr: Math.round(locationPage.ctr * variation * 10) / 10, // Round to 1 decimal
+  };
+}
+
+// Location pages for CTR
+const locationPagesCTR = [
   {
     pageName: "Yext Roasters - Downtown Raleigh",
     entityId: 49285,
@@ -355,30 +548,18 @@ const ctrLeaderboardData = [
     pageGroup: "Location",
     ctr: 9.2,
   },
-  {
-    pageName: "Find a Location Near You",
-    entityId: 10001,
-    pageGroup: "Locator",
-    ctr: 13.8,
-  },
+];
+
+// CTR Leaderboard Data
+const ctrLeaderboardData = [
+  ...locationPagesCTR,
   {
     pageName: "Store Locator",
     entityId: 10002,
     pageGroup: "Locator",
     ctr: 12.9,
   },
-  {
-    pageName: "Our Coffee Story",
-    entityId: 20001,
-    pageGroup: "Latte",
-    ctr: 11.5,
-  },
-  {
-    pageName: "Coffee Menu",
-    entityId: 20002,
-    pageGroup: "Latte",
-    ctr: 10.8,
-  },
+  ...locationPagesCTR.map(createLattePageFromLocationForCTR),
 ];
 
 // CTA Clicks Over Time Data
@@ -655,6 +836,22 @@ export function PagesOverviewDashboard() {
       }));
   };
 
+  // Get agentic interactions chart data based on selected page group
+  const getAgenticInteractionsChartData = () => {
+    if (selectedPageGroup === "all") {
+      return agenticInteractionsDataAll;
+    }
+    return generateAgenticInteractionsData(selectedPageGroup);
+  };
+
+  // Get page views chart data based on selected page group
+  const getPageViewsChartData = () => {
+    if (selectedPageGroup === "all") {
+      return pageViewsOverTimeDataAll;
+    }
+    return generatePageViewsData(selectedPageGroup);
+  };
+
   // Filter and transform leaderboard data based on selected page group
   const getAgenticLeaderboardData = () => {
     if (selectedPageGroup === "all") {
@@ -824,8 +1021,8 @@ export function PagesOverviewDashboard() {
             {/* Hero Numbers */}
             {(() => {
               // Calculate values from the latest data point
-              const latestData =
-                agenticInteractionsData[agenticInteractionsData.length - 1];
+              const chartData = getAgenticInteractionsChartData();
+              const latestData = chartData[chartData.length - 1];
               const totalAgenticInteractions =
                 latestData["AI Assistant"] +
                 latestData["AI Crawler"] +
@@ -928,10 +1125,13 @@ export function PagesOverviewDashboard() {
                       color: "#16a34a",
                     },
                   }}
-                  className="h-[300px]"
+                  className="h-[300px] w-full min-w-0"
                 >
                   <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={agenticInteractionsData}>
+                    <LineChart
+                      data={getAgenticInteractionsChartData()}
+                      margin={{ left: 10, right: 10, top: 5, bottom: 5 }}
+                    >
                       <CartesianGrid
                         strokeDasharray="3 3"
                         stroke="hsl(var(--border))"
@@ -939,6 +1139,10 @@ export function PagesOverviewDashboard() {
                       <XAxis
                         dataKey="date"
                         stroke="hsl(var(--muted-foreground))"
+                        padding={{ left: 0, right: 0 }}
+                        interval="preserveStartEnd"
+                        angle={0}
+                        tick={{ fontSize: 12 }}
                       />
                       <YAxis stroke="hsl(var(--muted-foreground))" />
                       <ChartTooltip />
@@ -1717,10 +1921,13 @@ export function PagesOverviewDashboard() {
                       color: "#16a34a",
                     },
                   }}
-                  className="h-[300px]"
+                  className="h-[300px] w-full min-w-0"
                 >
                   <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={pageViewsOverTimeData}>
+                    <LineChart
+                      data={getPageViewsChartData()}
+                      margin={{ left: 10, right: 10, top: 5, bottom: 5 }}
+                    >
                       <CartesianGrid
                         strokeDasharray="3 3"
                         stroke="hsl(var(--border))"
@@ -1728,6 +1935,10 @@ export function PagesOverviewDashboard() {
                       <XAxis
                         dataKey="date"
                         stroke="hsl(var(--muted-foreground))"
+                        padding={{ left: 0, right: 0 }}
+                        interval="preserveStartEnd"
+                        angle={0}
+                        tick={{ fontSize: 12 }}
                       />
                       <YAxis stroke="hsl(var(--muted-foreground))" />
                       <ChartTooltip />
